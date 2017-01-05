@@ -1,0 +1,19 @@
+{
+  "name": "webpacker-react",
+  "version": "0.0.2",
+  "description": "Javascript",
+  "homepage": "https://github.com/renchap/webpacker-react",
+  "repository": "renchap/webpacker-react",
+  "peerDependencies": {
+    "react": ">= 0.14",
+    "react-dom": ">= 0.14"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Renaud Chaput",
+    "email": "renchap@gmail.com"
+  },
+  "license": "MIT"
+}

@@ -16,8 +16,9 @@ window.WebpackerReact = {
     this.registeredComponents[name] = component;
     return true;
   },
-  handleEvents: function() {
+  addEventEventhandlers: function() {
     var registeredComponents = this.registeredComponents;
+
     if(this.eventsRegistered == true) {
       console.warn("webpacker-react: events have already been registered");
       return false;
@@ -48,5 +49,7 @@ window.WebpackerReact = {
     return true;
   }
 };
+
+window.WebpackerReact.addEventEventhandlers();
 
 module.exports = window.WebpackerReact;

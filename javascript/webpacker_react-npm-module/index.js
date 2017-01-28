@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-window.WebpackerReact = {
+var WebpackerReact = {
   eventsRegistered: false,
   registeredComponents : {},
 
@@ -50,6 +50,6 @@ window.WebpackerReact = {
   }
 };
 
-window.WebpackerReact.addEventEventhandlers();
+WebpackerReact.addEventEventhandlers();
 
-module.exports = window.WebpackerReact;
+export default WebpackerReact;

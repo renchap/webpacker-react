@@ -5,4 +5,6 @@ module Webpacker
   end
 end
 
-require 'webpacker/react/railtie' if defined?(Rails)
+require "webpacker/react/railtie" if defined?(Rails)
+require "webpacker/react/helpers"
+require "webpacker/react/component"

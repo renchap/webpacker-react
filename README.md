@@ -79,7 +79,7 @@ You can pass any of the usual arguments to render in this call: `layout`, `statu
 
 ## Development
 
-To work on this gem locally, you first need to clone and setup the example application.
+To work on this gem locally, you first need to clone and setup [the example application](https://github.com/renchap/webpacker-react-example).
 
 Then you need to change the example app Gemfile to point to your local repository and run bundle afterwise:
 

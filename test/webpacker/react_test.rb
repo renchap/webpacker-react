@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 module Webpacker
   class ReactTest < Minitest::Test

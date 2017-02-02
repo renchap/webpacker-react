@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 module Webpacker
   module React
@@ -15,7 +15,10 @@ module Webpacker
       end
 
       def test_it_outputs_a_div_element
-        expected_html = "<div data-react-class=\"#{@component[:name]}\" data-react-props=\"#{escaped_props(@component[:props])}\" />"
+        expected_html = <<-HTML.squish
+          <div data-react-class=\"#{@component[:name]}\"
+               data-react-props=\"#{escaped_props(@component[:props])}\" />
+        HTML
         html = Webpacker::React::Component.new(@component[:name])
                                           .render(@component[:props])
 
@@ -24,16 +27,23 @@ module Webpacker
 
       def test_it_accepts_html_options
         html = Webpacker::React::Component.new(@component[:name])
-                                          .render(@component[:props], class: "class", id: "id")
+                                          .render(
+                                            @component[:props],
+                                            class: "class",
+                                            id: "id"
+                                          )
 
-       assert(html.include?('class="class"') && html.include?('id="id"'), "it includes HTML options")
+        assert(
+          html.include?('class="class"') && html.include?('id="id"'),
+          "it includes HTML options"
+        )
       end
 
       private
 
-      def escaped_props(props)
-        html_escape(json_escape(props.to_json))
-      end
+        def escaped_props(props)
+          html_escape(json_escape(props.to_json))
+        end
     end
   end
 end

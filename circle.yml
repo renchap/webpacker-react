@@ -1,0 +1,15 @@
+machine:
+  node:
+    version: 6.1.0
+checkout:
+  post:
+    - yarn:
+        pwd: javascript/webpacker_react-npm-module
+    - yarn link:
+        pwd: javascript/webpacker_react-npm-module
+test:
+  pre:
+    - test/example_app/bin/yarn
+    - yarn link webpacker-react:
+        pwd: test/example_app/vendor
+    - test/example_app/bin/webpack

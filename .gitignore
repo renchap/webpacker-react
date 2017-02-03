@@ -1,4 +1,5 @@
-/node_modules/
+/javascript/webpacker_react-npm-module/dist/
+node_modules/
 /.bundle/
 /.yardoc
 /Gemfile.lock

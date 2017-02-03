@@ -17,7 +17,7 @@ module Webpacker
       def test_it_outputs_a_div_element
         expected_html = <<-HTML.squish
           <div data-react-class=\"#{@component[:name]}\"
-               data-react-props=\"#{escaped_props(@component[:props])}\" />
+               data-react-props=\"#{escaped_props(@component[:props])}\"></div>
         HTML
         html = Webpacker::React::Component.new(@component[:name])
                                           .render(@component[:props])

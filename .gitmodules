@@ -1,3 +1,0 @@
-[submodule "test/example_app"]
-	path = test/example_app
-	url = git@github.com:daninfpj/webpacker-react-example.git

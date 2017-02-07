@@ -9,4 +9,9 @@ node_modules/
 /pkg/
 /spec/reports/
 /tmp/
+
+test/example_app/log/*
+test/example_app/tmp/*
+test/example_app/public/packs
+
 .rvmrc

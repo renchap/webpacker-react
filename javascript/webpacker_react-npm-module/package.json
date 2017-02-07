@@ -9,6 +9,7 @@
     "react": ">= 0.14",
     "react-dom": ">= 0.14"
   },
+  "files": ["configure-hot-module-replacement.js", "hmr.js"],
   "scripts": {
     "build": "babel src --presets=babel-preset-es2015 --out-dir dist",
     "test": "echo \"Error: no test specified\" && exit 1",

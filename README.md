@@ -12,7 +12,7 @@ This gem is a work in progress. Final feature list:
 - [x] render React components from views using a `react_component` helper
 - [x] render React components from controllers using `render react_component: 'name'`
 - [ ] render components server-side
-- [ ] support for [hot reloading](https://github.com/gaearon/react-hot-loader)
+- [x] support for [hot reloading](https://github.com/gaearon/react-hot-loader)
 - [ ] use a Rails generator to create new components
 
 ## Installation
@@ -76,6 +76,110 @@ end
 You can pass any of the usual arguments to render in this call: `layout`, `status`, `content_type`, etc.
 
 *Note: you need to have [Webpack process your code](https://github.com/rails/webpacker#binstubs) before it is available to the browser, either by manually running `./bin/webpack` or having the `./bin/webpack-watcher` process running.*
+
+## Hot Module Replacement
+
+[HMR](https://webpack.js.org/guides/hmr-react/) allows to load changes to react components without reloading.
+
+1. install `react-hot-loader` and
+
+```
+./bin/yarn add react-hot-loader@3.0.0-beta.6 --dev
+```
+
+2. perform the following changes to your webpack config
+
+we provide a convenience function to add the necessary changes to your config if it's not
+significantly different than the standard webpacker config:
+
+```js
+//development.js
+...
+
+var configureHotModuleReplacement = require('webpacker-react/configure-hot-module-replacement')
+
+var config = require('./shared.js')
+
+config = configureHotModuleReplacement(config);
+
+module.exports = merge(config, ...)
+
+```
+
+Or you can make the changes manually
+
+```js
+{
+  output: {
+    publicPath: 'http://localhost:8080'
+  }
+}
+```
+
+add `react-hot-loader/babel` to your `babel-loader` rules
+
+```js
+
+{
+module: {
+  rules: [
+    {
+      test: /\.jsx?(.erb)?$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader',
+      options: {
+        presets: [
+          'react',
+          [ 'latest', { 'es2015': { 'modules': false } } ]
+        ],
+        plugins: ["react-hot-loader/babel"]
+      }
+    }
+}
+
+```
+
+prepend `react-hot-loader/patch` to your entries
+
+```js
+{
+  entry:
+    { application: [ 'react-hot-loader/patch', '../app/javascript/packs/application.js' ],
+    ...
+}
+```
+
+
+
+
+3. configure and start dev server:
+
+make sure the following line is in your development.rb
+
+```ruby
+config.x.webpacker[:dev_server_host] = 'http://localhost:8080/'
+```
+
+start dev server in hot replacement mode
+
+```sh
+./bin/webpack-dev-server --hot
+```
+
+4. opt in to HMR from your pack files
+
+```es6
+import SomeRootReactComponent from 'components/some-root-react-component'
+import WebpackerReact from 'webpacker-react/hmr'
+
+WebpackerReact.register(SomeRootReactComponent)
+if (module.hot)
+  module.hot.accept('components/some-root-react-component', () =>
+    WebpackerReact.renderOnHMR(SomeRootReactComponent) )
+```
+
+See [webpacker-react-example](https://github.com/renchap/webpacker-react-example/tree/hmr) for example
+
 
 ## Development
 

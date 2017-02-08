@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 
-RAILS_ENV   = ENV['RAILS_ENV'] || 'development'
-WEBPACK_ENV = ENV['WEBPACK_ENV'] || RAILS_ENV
+RAILS_ENV   = ENV["RAILS_ENV"] || "development"
+WEBPACK_ENV = ENV["WEBPACK_ENV"] || RAILS_ENV
 
-APP_PATH    = File.expand_path('../', __dir__)
-VENDOR_PATH = File.expand_path('../vendor', __dir__)
+APP_PATH    = File.expand_path("../", __dir__)
+VENDOR_PATH = File.expand_path("../vendor", __dir__)
 
 SET_NODE_PATH  = "NODE_PATH=#{VENDOR_PATH}/node_modules"
 WEBPACK_BIN    = "./node_modules/webpack/bin/webpack.js"

@@ -9,7 +9,7 @@ module Webpacker
         end
       end
 
-      initializer :webpacker_react_renderer, group: :all do |app|
+      initializer :webpacker_react_renderer, group: :all do |_app|
         ActionController::Renderers.add :react_component do |component_name, options|
           props = options.fetch(:props, {})
           html = Webpacker::React::Component.new(component_name).render(props)

@@ -100,6 +100,28 @@ success Registered "webpacker-react".
 
 After launching `./bin/webpack-watcher` and `./bin/rails server` in your example app directory, you can now change the Ruby or Javascript code in your local `webpacker-react` repository, and test it immediately using the example app.
 
+## Testing
+
+Make sure you run first:
+
+```sh
+$ test/example_app/bin/yarn
+$ test/example_app/bin/webpack
+```
+
+And optionally:
+
+```sh
+$ cd test/example_app/vendor/
+$ yarn link "webpacker-react"
+```
+
+Finally, run the test suite:
+
+```sh
+$ rake test
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/renchap/webpacker-react.

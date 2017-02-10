@@ -18,6 +18,15 @@ class RendererTest < ActionDispatch::IntegrationTest
     assert page.has_content? "Hello, I am a component rendered from a view!"
   end
 
+  test "consecutive components mounts" do
+    require_js
+
+    visit "/view_consecutive"
+
+    assert page.has_content? "component 1"
+    assert page.has_content? "component 2"
+  end
+
   private
 
     def require_js

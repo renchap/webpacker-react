@@ -25,6 +25,18 @@ module Webpacker
         assert_equal html, expected_html
       end
 
+      def test_it_outputs_div_elements_in_series
+        expected_html = "<div data-react-class=\"#{@component[:name]}\" data-react-props=\"#{escaped_props(@component[:props])}\"></div>" * 2
+
+        html = Webpacker::React::Component.new(@component[:name])
+                                          .render(@component[:props])
+
+        html += Webpacker::React::Component.new(@component[:name])
+                                          .render(@component[:props])
+
+        assert_equal expected_html, html
+      end
+
       def test_it_accepts_html_options
         html = Webpacker::React::Component.new(@component[:name])
                                           .render(

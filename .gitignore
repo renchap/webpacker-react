@@ -10,7 +10,6 @@ node_modules/
 /tmp/
 
 /javascript/webpacker_react-npm-module/dist/*.js
-/javascript/webpacker_react-npm-module/dist/yarn.lock
 
 test/example_app/log/*
 test/example_app/tmp/*

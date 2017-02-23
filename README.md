@@ -22,7 +22,7 @@ Your Rails application needs to use Webpacker and have the React integration don
 First, you need to add the webpacker-react gem to your Rails app Gemfile:
 
 ```ruby
-gem 'webpacker-react', github: 'renchap/webpacker-react'
+gem 'webpacker-react', "~>0.1.0"
 ```
 
 Once done, run `bundler` to install the gem.
@@ -31,7 +31,7 @@ Then you need to update your `vendor/package.json` file to include the `webpacke
 ```json
   "dependencies": {
     "..."
-    "webpacker-react": "~>0.0.1"
+    "webpacker-react": "~>0.1.0"
   },
 ```
 

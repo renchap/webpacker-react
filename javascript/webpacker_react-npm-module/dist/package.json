@@ -1,6 +1,6 @@
 {
   "name": "webpacker-react",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Javascript",
   "main": "index.js",
   "homepage": "https://github.com/renchap/webpacker-react",
@@ -13,7 +13,11 @@
     "react": ">= 0.14",
     "react-dom": ">= 0.14"
   },
-  "files": ["index.js", "configure-hot-module-replacement.js", "hmr.js"],
+  "files": [
+    "index.js",
+    "configure-hot-module-replacement.js",
+    "hmr.js"
+  ],
   "scripts": {
     "prepublish": "cd .. ; yarn run build"
   },

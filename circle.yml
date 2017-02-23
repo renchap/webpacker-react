@@ -5,8 +5,10 @@ checkout:
   post:
     - yarn:
         pwd: javascript/webpacker_react-npm-module
+    - yarn:
+        pwd: javascript/webpacker_react-npm-module/dist
     - yarn link:
-        pwd: javascript/webpacker_react-npm-module
+        pwd: javascript/webpacker_react-npm-module/dist
 test:
   pre:
     - test/example_app/bin/yarn

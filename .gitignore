@@ -1,4 +1,3 @@
-/javascript/webpacker_react-npm-module/dist/
 node_modules/
 /.bundle/
 /.yardoc
@@ -9,6 +8,8 @@ node_modules/
 /pkg/
 /spec/reports/
 /tmp/
+
+/javascript/webpacker_react-npm-module/dist/*.js
 
 test/example_app/log/*
 test/example_app/tmp/*

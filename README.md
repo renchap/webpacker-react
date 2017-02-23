@@ -11,8 +11,8 @@ This gem is a work in progress. Final feature list:
 - [x] uses the new Webpacker way of integrating Javascript with Rails (using packs)
 - [x] render React components from views using a `react_component` helper
 - [x] render React components from controllers using `render react_component: 'name'`
+- [x] support for [hot reloading](https://github.com/gaearon/react-hot-loader)
 - [ ] render components server-side
-- [ ] support for [hot reloading](https://github.com/gaearon/react-hot-loader)
 - [ ] use a Rails generator to create new components
 
 ## Installation
@@ -47,10 +47,10 @@ The first step is to register your root components (those you want to load from 
 In your pack file (`app/javascript/packs/*.js`), import your components as well as `webpacker-react` and register them. Considering you have a component in `app/javascript/components/hello.js`:
 
 ```javascript
-import Hello from 'components/hello';
-import WebpackerReact from 'webpacker-react';
+import Hello from 'components/hello'
+import WebpackerReact from 'webpacker-react'
 
-WebpackerReact.register(Hello);
+WebpackerReact.register(Hello)
 ```
 
 Now you can render React components from your views or your controllers.
@@ -77,6 +77,95 @@ You can pass any of the usual arguments to render in this call: `layout`, `statu
 
 *Note: you need to have [Webpack process your code](https://github.com/rails/webpacker#binstubs) before it is available to the browser, either by manually running `./bin/webpack` or having the `./bin/webpack-watcher` process running.*
 
+### Hot Module Replacement
+
+[HMR](https://webpack.js.org/guides/hmr-react/) allows to reload / add / remove modules live in the browser without
+reloading the page. This allows any change you make to your React components to be applied as soon as you save,
+preserving their current state.
+
+First, install `react-hot-loader`:
+
+```
+./bin/yarn add react-hot-loader@3.0.0-beta.6
+```
+
+You then need to update your Webpack config.
+
+We provide a convenience function to add the necessary changes to your config if it's not
+significantly different than the standard Webpacker config:
+
+```js
+//development.js
+...
+
+var configureHotModuleReplacement = require('webpacker-react/configure-hot-module-replacement')
+
+var sharedConfig = require('./shared.js')
+sharedConfig = configureHotModuleReplacement(sharedConfig)
+
+module.exports = merge(sharedConfig, ...)
+```
+
+If you need to change your configuration manually:
+
+1. set the public URL used to load `webpack-dev-server` assets
+    ```js
+    {
+      output: {
+        publicPath: 'http://localhost:8080'
+      }
+    }
+    ```
+
+2. add `react-hot-loader/babel` to your `babel-loader` rules:
+    ```javascript
+    {
+    module: {
+      rules: [
+        {
+          test: /\.jsx?(.erb)?$/,
+          exclude: /node_modules/,
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              'react',
+              [ 'latest', { 'es2015': { 'modules': false } } ]
+            ],
+            plugins: ['react-hot-loader/babel']
+          }
+        }
+    }
+    ```
+
+3. prepend `react-hot-loader/patch` to your entries:
+    ```javascript
+    {
+      entry:
+        { application: [ 'react-hot-loader/patch', '../app/javascript/packs/application.js' ],
+        ...
+    }
+    ```
+
+4. you now need to use `webpack-dev-server` (in place of `webpack` or `webpack-watcher`). Make sure the following line is in your development.rb:
+    ```ruby
+    config.x.webpacker[:dev_server_host] = 'http://localhost:8080/'
+    ```
+and start `webpack-dev-server` in hot replacement mode:
+    ```
+    ./bin/webpack-dev-server --hot
+    ```
+
+5. finally opt in to HMR from your pack files:
+    ```es6
+    import SomeRootReactComponent from 'components/some-root-react-component'
+    import WebpackerReact from 'webpacker-react/hmr'
+
+    WebpackerReact.register(SomeRootReactComponent)
+    if (module.hot)
+      module.hot.accept('components/some-root-react-component', () =>
+        WebpackerReact.renderOnHMR(SomeRootReactComponent) )
+    ```
+
 ## Development
 
 To work on this gem locally, you first need to clone and setup [the example application](https://github.com/renchap/webpacker-react-example).
@@ -90,7 +179,8 @@ gem 'webpacker-react', path: '~/code/webpacker-react/'
 Finally, you need to tell Yarn to use your local copy of the NPM module in this application, using [`yarn link`](https://yarnpkg.com/en/docs/cli/link):
 
 ```
-$ cd ~/code/webpacker-react/javascript/webpacker_react-npm-module/
+$ cd ~/code/webpacker-react/javascript/webpacker_react-npm-module/dist/
+$ yarn             # builds the code
 $ yarn link
 success Registered "webpacker-react".
 info You can now run `yarn link "webpacker-react"` in the projects where you want to use this module and it will be used instead.

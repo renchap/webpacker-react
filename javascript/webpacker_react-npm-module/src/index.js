@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import _ from 'lodash'
 import ujs from './ujs'
 
 const CLASS_ATTRIBUTE_NAME = 'data-react-class'
@@ -42,22 +43,13 @@ const WebpackerReact = {
     this.wrapForHMR = wrapForHMR
   },
 
-  register(component) {
-    const name = component.name
-
-    if (!name) {
-      console.error("Could not determine component name. Probably it's a functional component. " +
-          "Please declare component name by passing an 'as' parameter: " +
-          "register(Component,  {as: 'Component'})")
+  register(components) {
+    const collisions = _.intersection(_.keys(this.registeredComponents), _.keys(components))
+    if (collisions.length > 0) {
+      console.warn(`webpack-react: can not register components. Following components are already registered: ${collisions}`)
       return false
     }
-
-    if (this.registeredComponents[name]) {
-      console.warn(`webpacker-react: Cant register component, another one with this name is already registered: ${name}, registered components are ${this.registeredComponents}`)
-      return false
-    }
-
-    this.registeredComponents[name] = component
+    _.assign(this.registeredComponents, components)
     return true
   },
 

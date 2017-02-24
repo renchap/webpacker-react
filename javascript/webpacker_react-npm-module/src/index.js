@@ -120,8 +120,16 @@ const WebpackerReact = {
     this.wrapForHMR = wrapForHMR
   },
 
-  register(component) {
-    const name = component.name
+  register(component, options) {
+    var name = component.name || (options !== undefined && options.as);
+
+    console.log("Registering component: " + name)
+
+    if (!name) {
+      throw "Could not determine component name. Probably it's a functional component. " +
+      "Please declare component name by passing an 'as' parameter: " +
+      "register(Component,  {as: 'Component'})"
+    }
 
     if (this.registeredComponents[name]) {
       console.warn(`webpacker-react: Cant register component, another one with this name is already registered: ${name}`)

@@ -45,8 +45,6 @@ const WebpackerReact = {
   register(component, options) {
     var name = component.name || (options !== undefined && options.as);
 
-    console.log("Registering component: " + name)
-
     if (!name) {
       throw "Could not determine component name. Probably it's a functional component. " +
       "Please declare component name by passing an 'as' parameter: " +
@@ -63,8 +61,6 @@ const WebpackerReact = {
   },
 
   mountComponents() {
-    console.debug("Mounting components")
-
     var registeredComponents = this.registeredComponents
     var toMount = document.querySelectorAll('[' + CLASS_ATTRIBUTE_NAME + ']')
 
@@ -82,13 +78,10 @@ const WebpackerReact = {
   },
 
   unmountComponents() {
-    console.debug("Unmounting components")
-
     var mounted = document.querySelectorAll('[' + CLASS_ATTRIBUTE_NAME + ']')
 
     for (var i = 0; i < mounted.length; ++i) {
       var node = mounted[i];
-      console.log(node);
       ReactDOM.unmountComponentAtNode(node);
     }
   },

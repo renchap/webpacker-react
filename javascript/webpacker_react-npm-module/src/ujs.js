@@ -1,12 +1,16 @@
 const ujs = {
-  handleEvent: function(eventName, callback) {
+  handleEvent: function (eventName, callback, {once} = {once: false}) {
     // jQuery is optional. Use it to support legacy browsers.
     var $ = (typeof window.jQuery !== 'undefined') && window.jQuery;
 
     if ($) {
-      $(document).on(eventName, callback);
+      if (once) {
+        $(document).one(eventName, callback);
+      } else {
+        $(document).on(eventName, callback);
+      }
     } else {
-      document.addEventListener(eventName, callback);
+      document.addEventListener(eventName, callback, {once});
     }
   },
 
@@ -32,7 +36,8 @@ const ujs = {
   },
 
   turbolinks5: function (onMount, onUnmount) {
-    this.handleEvent('turbolinks:load', onMount);
+    this.handleEvent('turbolinks:load', onMount, {once: true});
+    this.handleEvent('turbolinks:render', onMount);
     this.handleEvent('turbolinks:before-render', onUnmount);
   },
 

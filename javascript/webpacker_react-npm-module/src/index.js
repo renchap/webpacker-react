@@ -11,14 +11,14 @@ const WebpackerReact = {
   wrapForHMR: null,
 
   render: function (node, component) {
-    var propsJson = node.getAttribute(PROPS_ATTRIBUTE_NAME)
-    var props = propsJson && JSON.parse(propsJson)
+      var propsJson = node.getAttribute(PROPS_ATTRIBUTE_NAME)
+      var props = propsJson && JSON.parse(propsJson)
 
-    let reactElement = React.createElement(component, props)
-    if (this.wrapForHMR) {
-      reactElement = this.wrapForHMR(reactElement)
-    }
-    ReactDOM.render(reactElement, node)
+      let reactElement = React.createElement(component, props)
+      if (this.wrapForHMR) {
+        reactElement = this.wrapForHMR(reactElement)
+      }
+      ReactDOM.render(reactElement, node)
   },
 
   renderOnHMR(component) {
@@ -63,6 +63,8 @@ const WebpackerReact = {
   },
 
   mountComponents() {
+    console.debug("Mounting components")
+
     var registeredComponents = this.registeredComponents
     var toMount = document.querySelectorAll('[' + CLASS_ATTRIBUTE_NAME + ']')
 
@@ -80,10 +82,13 @@ const WebpackerReact = {
   },
 
   unmountComponents() {
+    console.debug("Unmounting components")
+
     var mounted = document.querySelectorAll('[' + CLASS_ATTRIBUTE_NAME + ']')
 
     for (var i = 0; i < mounted.length; ++i) {
       var node = mounted[i];
+      console.log(node);
       ReactDOM.unmountComponentAtNode(node);
     }
   },

@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   end
 
   def view_consecutive
+    @count = (params[:count] || 2).to_i
   end
 
   def controller_component

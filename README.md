@@ -51,7 +51,33 @@ import Hello from 'components/hello'
 import WebpackerReact from 'webpacker-react'
 
 WebpackerReact.register(Hello)
+WebpackerReact.initialize()
 ```
+
+### With Turbolinks
+
+You have to make sure Turbolinks is loaded before calling `WebpackerReact.initialize()`.
+
+For example:
+
+```javascript
+import Hello from 'components/hello'
+import WebpackerReact from 'webpacker-react'
+import Turbolinks from 'turbolinks'
+
+Turbolinks.start()
+WebpackerReact.initialize()
+
+WebpackerReact.register(Hello)
+```
+
+You may also load turbolinks in regular asset pipeline `application.js`:
+
+```javascript
+//= require "turbolinks"
+```
+
+In that case, make sure your packs are loaded *after* `application.js`
 
 Now you can render React components from your views or your controllers.
 

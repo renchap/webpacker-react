@@ -47,13 +47,13 @@ const WebpackerReact = {
 
     if (!name) {
       console.error("Could not determine component name. Probably it's a functional component. " +
-      "Please declare component name by passing an 'as' parameter: " +
-      "register(Component,  {as: 'Component'})")
+          "Please declare component name by passing an 'as' parameter: " +
+          "register(Component,  {as: 'Component'})")
       return false
     }
 
     if (this.registeredComponents[name]) {
-      console.warn(`webpacker-react: Cant register component, another one with this name is already registered: ${name}`)
+      console.warn(`webpacker-react: Cant register component, another one with this name is already registered: ${name}, registered components are ${this.registeredComponents}`)
       return false
     }
 
@@ -61,11 +61,19 @@ const WebpackerReact = {
     return true
   },
 
+  unmountComponents() {
+    const mounted = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`)
+    for (let i = 0; i < mounted.length; i += 1) {
+      ReactDOM.unmountComponentAtNode(mounted[i])
+    }
+  },
+
   mountComponents() {
     const registeredComponents = this.registeredComponents
-    const toMount = Array.from(document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`))
+    const toMount = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`)
 
-    toMount.forEach((node) => {
+    for (let i = 0; i < toMount.length; i += 1) {
+      const node = toMount[i]
       const className = node.getAttribute(CLASS_ATTRIBUTE_NAME)
       const component = registeredComponents[className]
 
@@ -74,12 +82,7 @@ const WebpackerReact = {
       } else {
         console.error(`webpacker-react: cant render a component that has not been registered: ${className}`)
       }
-    })
-  },
-
-  unmountComponents() {
-    const mounted = Array.from(document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`))
-    mounted.forEach(node => ReactDOM.unmountComponentAtNode(node))
+    }
   },
 
   addEventEventhandlers() {

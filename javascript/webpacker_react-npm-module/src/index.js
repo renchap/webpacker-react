@@ -63,7 +63,7 @@ const WebpackerReact = {
 
   mountComponents() {
     const registeredComponents = this.registeredComponents
-    const toMount = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`) || []
+    const toMount = Array.from(document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`))
 
     toMount.forEach((node) => {
       const className = node.getAttribute(CLASS_ATTRIBUTE_NAME)
@@ -78,7 +78,7 @@ const WebpackerReact = {
   },
 
   unmountComponents() {
-    const mounted = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`) || []
+    const mounted = Array.from(document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`))
     mounted.forEach(node => ReactDOM.unmountComponentAtNode(node))
   },
 

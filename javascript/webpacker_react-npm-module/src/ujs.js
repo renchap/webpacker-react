@@ -1,3 +1,7 @@
+// This module is an adapted version from rails-ujs module
+// implemented in http://github.com/reactjs/react-rails
+// which is distributed under Apache License 2.0
+
 const ujs = {
   handleEvent(eventName, callback, { once } = { once: false }) {
     const $ = (typeof window.jQuery !== 'undefined') && window.jQuery

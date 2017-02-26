@@ -85,9 +85,9 @@ const WebpackerReact = {
     }
   },
 
-  addEventEventhandlers() {
+  initialize() {
     if (this.eventsRegistered === true) {
-      console.warn('webpacker-react: events have already been registered')
+      console.warn('webpacker-react: events have already been initialized')
       return false
     }
 
@@ -97,7 +97,5 @@ const WebpackerReact = {
     return true
   }
 }
-
-WebpackerReact.addEventEventhandlers()
 
 export default WebpackerReact

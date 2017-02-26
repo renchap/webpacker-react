@@ -1,2 +1,6 @@
-<%= react_component('Hello', name: 'component 1') %>
-<%= react_component('Hello', name: 'component 2') %>
+<% @count.times do |i| %>
+  <%= react_component('Hello', name: "component #{i+1}") %>
+<% end %>
+
+<%= link_to "Show 2", count: 2 %>
+<%= link_to "Show 3", count: 3 %>

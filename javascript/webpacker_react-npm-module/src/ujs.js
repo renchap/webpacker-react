@@ -1,9 +1,7 @@
-const $ = (typeof window.jQuery !== 'undefined') && window.jQuery
-const Turbolinks = window.Turbolinks
-
 const ujs = {
-
   handleEvent(eventName, callback, { once } = { once: false }) {
+    const $ = (typeof window.jQuery !== 'undefined') && window.jQuery
+
     if ($) {
       if (once) {
         $(document).one(eventName, callback)
@@ -16,6 +14,9 @@ const ujs = {
   },
 
   setup(onMount, onUnmount) {
+    const $ = (typeof window.jQuery !== 'undefined') && window.jQuery
+    const Turbolinks = window.Turbolinks
+
     // Detect which kind of events to set up:
     if (typeof Turbolinks !== 'undefined' && Turbolinks.supported) {
       if (typeof Turbolinks.EVENTS !== 'undefined') {
@@ -41,6 +42,8 @@ const ujs = {
   },
 
   turbolinksClassic(onMount, onUnmount) {
+    const Turbolinks = window.Turbolinks
+
     this.handleEvent(Turbolinks.EVENTS.CHANGE, onMount)
     this.handleEvent(Turbolinks.EVENTS.BEFORE_UNLOAD, onUnmount)
   },
@@ -50,6 +53,7 @@ const ujs = {
     // have named events and didn't have a before-unload event.
     // Also, it didn't work with the Turbolinks cache, see
     // https://github.com/reactjs/react-rails/issues/87
+    const Turbolinks = window.Turbolinks
     Turbolinks.pagesCached(0)
     this.handleEvent('page:change', onMount)
     this.handleEvent('page:receive', onUnmount)
@@ -62,6 +66,7 @@ const ujs = {
   },
 
   native(onMount) {
+    const $ = (typeof window.jQuery !== 'undefined') && window.jQuery
     if ($) {
       $(() => onMount())
     } else if ('addEventListener' in window) {

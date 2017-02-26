@@ -49,7 +49,7 @@ const WebpackerReact = {
     if (name) {
       this.setup({ [name]: component })
     } else {
-      console.error('webpacker-react: WebpackerReact.register(component) does not support functional components. Use WebpackerReact.setup({Component, ...) instead')
+      console.error('webpacker-react: WebpackerReact.register(component) does not support functional components. Use WebpackerReact.setup({Component, ...}) instead')
     }
   },
 

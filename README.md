@@ -50,12 +50,8 @@ In your pack file (`app/javascript/packs/*.js`), import your components as well 
 import Hello from 'components/hello'
 import WebpackerReact from 'webpacker-react'
 
-<<<<<<< HEAD
-WebpackerReact.register(Hello)
 WebpackerReact.initialize()
-=======
 WebpackerReact.register({Hello})
->>>>>>> Remove automatic name detection, allow passing many components to WebpackerReact.register
 ```
 
 ### With Turbolinks

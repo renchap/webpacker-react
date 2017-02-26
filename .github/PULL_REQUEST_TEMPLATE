@@ -1,0 +1,9 @@
+Fixes # .
+
+Changes:
+
+Please ensure that:
+- [ ] Changelog is updated if not a minor patch
+- [ ] Ruby linting is ok: `rubocop` is all green
+- [ ] Javascript linting is ok: `cd javascript/webpacker_react-npm-module/ && yarn lint` is all green
+- [ ] [Tests](https://github.com/renchap/webpacker-react#testing) are all green

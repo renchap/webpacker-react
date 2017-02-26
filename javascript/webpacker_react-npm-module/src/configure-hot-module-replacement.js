@@ -1,13 +1,14 @@
 import webpack from 'webpack'
 import merge from 'webpack-merge'
 
-function configureHotModuleReplacement(config) {
-  let webpackDevServerAddr = process.env['WEBPACK_DEV_SERVER_ADDR'] || 'http://localhost:8080/'
-  config = merge(
-    config,
+function configureHotModuleReplacement(originalConfig) {
+  const webpackDevServerAddr = process.env.WEBPACK_DEV_SERVER_ADDR || 'http://localhost:8080/'
+  const config = merge(
+    originalConfig,
     {
       output: {
-        publicPath: webpackDevServerAddr // needed for HMR to know where to load the hot update chunks
+        // needed for HMR to know where to load the hot update chunks
+        publicPath: webpackDevServerAddr
       },
       plugins: [
         new webpack.NamedModulesPlugin()
@@ -15,20 +16,19 @@ function configureHotModuleReplacement(config) {
     }
   )
 
-  config.module.rules = config.module.rules.map( rule => {
+  config.module.rules = config.module.rules.map((rule) => {
     if (rule.loader === 'babel-loader') {
-      return merge(rule, {options: {plugins: ['react-hot-loader/babel']}})
-    } else {
-      return rule
+      return merge(rule, { options: { plugins: ['react-hot-loader/babel'] } })
     }
+    return rule
   })
 
-  for (let key of Object.keys(config.entry)) {
+  Object.keys(config.entry).forEach((key) => {
     if (!(config.entry[key] instanceof Array)) {
       config.entry[key] = [config.entry[key]]
     }
     config.entry[key].unshift('react-hot-loader/patch')
-  }
+  })
   return config
 }
 

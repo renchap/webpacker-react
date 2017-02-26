@@ -179,12 +179,15 @@ gem 'webpacker-react', path: '~/code/webpacker-react/'
 Finally, you need to tell Yarn to use your local copy of the NPM module in this application, using [`yarn link`](https://yarnpkg.com/en/docs/cli/link):
 
 ```
-$ cd ~/code/webpacker-react/javascript/webpacker_react-npm-module/dist/
-$ yarn             # builds the code
+$ cd ~/code/webpacker-react/javascript/webpacker_react-npm-module/
+$ yarn
+$ cd dist/
+$ yarn             # compiles the code from src/ to dist/
 $ yarn link
 success Registered "webpacker-react".
 info You can now run `yarn link "webpacker-react"` in the projects where you want to use this module and it will be used instead.
 $ cd ~/code/webpacker-react-example/
+$ yarn link webpacker-react
 success Registered "webpacker-react".
 ```
 
@@ -210,6 +213,13 @@ Finally, run the test suite:
 
 ```sh
 $ rake test
+```
+
+If you change the javascript code, please ensure there are no style errors:
+
+```sh
+$ cd javascript/webpacker_react-npm-module/
+$ yarn lint
 ```
 
 ## Contributing

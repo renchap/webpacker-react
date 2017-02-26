@@ -68,7 +68,7 @@ import Turbolinks from 'turbolinks'
 Turbolinks.start()
 WebpackerReact.initialize()
 
-WebpackerReact.register(Hello)
+WebpackerReact.register({Hello})
 ```
 
 You may also load turbolinks in regular asset pipeline `application.js`:

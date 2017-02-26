@@ -7,7 +7,6 @@ const CLASS_ATTRIBUTE_NAME = 'data-react-class'
 const PROPS_ATTRIBUTE_NAME = 'data-react-props'
 
 const WebpackerReact = {
-  eventsRegistered: false,
   registeredComponents: {},
   wrapForHMR: null,
 
@@ -28,7 +27,7 @@ const WebpackerReact = {
     this.registeredComponents[name] = component
 
     if (!this.wrapForHMR) {
-      console.warn('webpack-react: renderOnHMR called but not elements not wrapped for HMR')
+      console.warn('webpacker-react: renderOnHMR called but not elements not wrapped for HMR')
     }
 
     const toMount = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}=${name}]`)
@@ -43,13 +42,13 @@ const WebpackerReact = {
     this.wrapForHMR = wrapForHMR
   },
 
-  register(components) {
+  registerComponents(components) {
     const collisions = _.intersection(_.keys(this.registeredComponents), _.keys(components))
     if (collisions.length > 0) {
-      console.warn(`webpack-react: can not register components. Following components are already registered: ${collisions}`)
-      return false
+      console.error(`webpacker-react: can not register components. Following components are already registered: ${collisions}`)
     }
-    _.assign(this.registeredComponents, components)
+
+    _.assign(this.registeredComponents, _.omit(components, collisions))
     return true
   },
 
@@ -77,16 +76,11 @@ const WebpackerReact = {
     }
   },
 
-  initialize() {
-    if (this.eventsRegistered === true) {
-      console.warn('webpacker-react: events have already been initialized')
-      return false
-    }
-
+  setup(components = {}) {
+    this.registerComponents(components)
+    if (typeof window.WebpackerReact !== 'undefined') return
+    window.WebpackerReact = this
     ujs.setup(this.mountComponents.bind(this), this.unmountComponents.bind(this))
-
-    this.eventsRegistered = true
-    return true
   }
 }
 

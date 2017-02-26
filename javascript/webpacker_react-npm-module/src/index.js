@@ -42,8 +42,8 @@ const WebpackerReact = {
     this.wrapForHMR = wrapForHMR
   },
 
-  register(component, options) {
-    const name = component.name || (options !== undefined && options.as)
+  register(component) {
+    const name = component.name
 
     if (!name) {
       console.error("Could not determine component name. Probably it's a functional component. " +
@@ -63,7 +63,7 @@ const WebpackerReact = {
 
   mountComponents() {
     const registeredComponents = this.registeredComponents
-    const toMount = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`)
+    const toMount = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`) || []
 
     toMount.forEach((node) => {
       const className = node.getAttribute(CLASS_ATTRIBUTE_NAME)
@@ -78,7 +78,7 @@ const WebpackerReact = {
   },
 
   unmountComponents() {
-    const mounted = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`)
+    const mounted = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`) || []
     mounted.forEach(node => ReactDOM.unmountComponentAtNode(node))
   },
 

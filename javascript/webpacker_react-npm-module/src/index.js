@@ -46,9 +46,10 @@ const WebpackerReact = {
     const name = component.name || (options !== undefined && options.as)
 
     if (!name) {
-      throw "Could not determine component name. Probably it's a functional component. " +
+      console.error("Could not determine component name. Probably it's a functional component. " +
       "Please declare component name by passing an 'as' parameter: " +
-      "register(Component,  {as: 'Component'})"
+      "register(Component,  {as: 'Component'})")
+      return false
     }
 
     if (this.registeredComponents[name]) {

@@ -8,5 +8,4 @@ if (!window.Turbolinks) {
   console.error("Turbolinks failed to install")
 }
 
-WebpackerReact.register({HelloReact})
-WebpackerReact.initialize()
+WebpackerReact.setup({HelloReact})

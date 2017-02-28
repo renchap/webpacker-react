@@ -29,7 +29,7 @@ Once done, run `bundle` to install the gem.
 
 Then you need to update your `package.json` file to include the `webpacker-react` NPM module:
 
-`./bin/yarn add webpacker-react@0.1.x`
+`./bin/yarn add webpacker-react`
 
 You are now all set!
 

@@ -123,7 +123,7 @@ significantly different than the standard Webpacker config:
 var configureHotModuleReplacement = require('webpacker-react/configure-hot-module-replacement')
 
 var sharedConfig = require('./shared.js')
-sharedConfig = configureHotModuleReplacement(sharedConfig)
+sharedConfig.config = configureHotModuleReplacement(sharedConfig.config)
 
 module.exports = merge(sharedConfig, ...)
 ```

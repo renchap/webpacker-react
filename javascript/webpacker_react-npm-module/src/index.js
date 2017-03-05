@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import _ from 'lodash'
+import { intersection, keys, assign, omit } from 'lodash'
 import ujs from './ujs'
 
 const CLASS_ATTRIBUTE_NAME = 'data-react-class'
@@ -54,12 +54,12 @@ const WebpackerReact = {
   },
 
   registerComponents(components) {
-    const collisions = _.intersection(_.keys(this.registeredComponents), _.keys(components))
+    const collisions = intersection(keys(this.registeredComponents), keys(components))
     if (collisions.length > 0) {
       console.error(`webpacker-react: can not register components. Following components are already registered: ${collisions}`)
     }
 
-    _.assign(this.registeredComponents, _.omit(components, collisions))
+    assign(this.registeredComponents, omit(components, collisions))
     return true
   },
 

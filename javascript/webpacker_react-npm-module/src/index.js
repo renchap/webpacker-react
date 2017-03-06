@@ -42,17 +42,6 @@ const WebpackerReact = {
     this.wrapForHMR = wrapForHMR
   },
 
-  register(component) {
-    console.warn('webpacker-react: WebpackerReact.register(component) has been deprecated, because it can not support functional components. It will be removed in future versions. Use WebpackerReact.setup({Component, ...}) instead.')
-
-    const name = component.name
-    if (name) {
-      this.setup({ [name]: component })
-    } else {
-      console.error('webpacker-react: WebpackerReact.register(component) does not support functional components. Use WebpackerReact.setup({Component, ...}) instead')
-    }
-  },
-
   registerComponents(components) {
     const collisions = intersection(keys(this.registeredComponents), keys(components))
     if (collisions.length > 0) {

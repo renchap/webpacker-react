@@ -69,7 +69,7 @@ const WebpackerReact = {
       const component = registeredComponents[className]
 
       if (component) {
-        this.render(node, component)
+        if (node.innerHTML.length === 0) this.render(node, component)
       } else {
         console.error(`webpacker-react: cant render a component that has not been registered: ${className}`)
       }
@@ -77,10 +77,13 @@ const WebpackerReact = {
   },
 
   setup(components = {}) {
-    this.registerComponents(components)
-    if (typeof window.WebpackerReact !== 'undefined') return
-    window.WebpackerReact = this
-    ujs.setup(this.mountComponents.bind(this), this.unmountComponents.bind(this))
+    if (typeof window.WebpackerReact === 'undefined') {
+      window.WebpackerReact = this
+      ujs.setup(this.mountComponents.bind(this), this.unmountComponents.bind(this))
+    }
+
+    window.WebpackerReact.registerComponents(components)
+    window.WebpackerReact.mountComponents()
   }
 }
 

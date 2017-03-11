@@ -7,5 +7,7 @@ Rails.application.routes.draw do
   get "/turbolinks/view_consecutive", to: "turbolinks_pages#view_consecutive"
   get "/turbolinks/controller", to: "turbolinks_pages#controller_component"
 
+  get "/two_packs/view_all", to: "two_packs#view_all"
+
   root to: "pages#view_component"
 end

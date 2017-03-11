@@ -1,5 +1,4 @@
-import Hello from 'components/hello';
+import HelloReact from 'components/hello';
 import WebpackerReact from 'webpacker-react';
 
-WebpackerReact.register(Hello);
-WebpackerReact.initialize();
+WebpackerReact.setup({HelloReact})

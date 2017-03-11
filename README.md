@@ -46,8 +46,7 @@ In your pack file (`app/javascript/packs/*.js`), import your components as well 
 import Hello from 'components/hello'
 import WebpackerReact from 'webpacker-react'
 
-WebpackerReact.register(Hello)
-WebpackerReact.initialize()
+WebpackerReact.setup({Hello})
 ```
 
 ### With Turbolinks
@@ -62,9 +61,8 @@ import WebpackerReact from 'webpacker-react'
 import Turbolinks from 'turbolinks'
 
 Turbolinks.start()
-WebpackerReact.initialize()
 
-WebpackerReact.register(Hello)
+WebpackerReact.setup({Hello})
 ```
 
 You may also load turbolinks in regular asset pipeline `application.js`:

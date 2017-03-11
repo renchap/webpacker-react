@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { intersection, keys, assign, omit } from 'lodash'
 import ujs from './ujs'
 
 const CLASS_ATTRIBUTE_NAME = 'data-react-class'
 const PROPS_ATTRIBUTE_NAME = 'data-react-props'
 
 const WebpackerReact = {
-  eventsRegistered: false,
   registeredComponents: {},
   wrapForHMR: null,
 
@@ -27,7 +27,7 @@ const WebpackerReact = {
     this.registeredComponents[name] = component
 
     if (!this.wrapForHMR) {
-      console.warn('webpack-react: renderOnHMR called but not elements not wrapped for HMR')
+      console.warn('webpacker-react: renderOnHMR called but not elements not wrapped for HMR')
     }
 
     const toMount = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}=${name}]`)
@@ -42,22 +42,13 @@ const WebpackerReact = {
     this.wrapForHMR = wrapForHMR
   },
 
-  register(component) {
-    const name = component.name
-
-    if (!name) {
-      console.error("Could not determine component name. Probably it's a functional component. " +
-          "Please declare component name by passing an 'as' parameter: " +
-          "register(Component,  {as: 'Component'})")
-      return false
+  registerComponents(components) {
+    const collisions = intersection(keys(this.registeredComponents), keys(components))
+    if (collisions.length > 0) {
+      console.error(`webpacker-react: can not register components. Following components are already registered: ${collisions}`)
     }
 
-    if (this.registeredComponents[name]) {
-      console.warn(`webpacker-react: Cant register component, another one with this name is already registered: ${name}, registered components are ${this.registeredComponents}`)
-      return false
-    }
-
-    this.registeredComponents[name] = component
+    assign(this.registeredComponents, omit(components, collisions))
     return true
   },
 
@@ -78,23 +69,21 @@ const WebpackerReact = {
       const component = registeredComponents[className]
 
       if (component) {
-        this.render(node, component)
+        if (node.innerHTML.length === 0) this.render(node, component)
       } else {
         console.error(`webpacker-react: cant render a component that has not been registered: ${className}`)
       }
     }
   },
 
-  initialize() {
-    if (this.eventsRegistered === true) {
-      console.warn('webpacker-react: events have already been initialized')
-      return false
+  setup(components = {}) {
+    if (typeof window.WebpackerReact === 'undefined') {
+      window.WebpackerReact = this
+      ujs.setup(this.mountComponents.bind(this), this.unmountComponents.bind(this))
     }
 
-    ujs.setup(this.mountComponents.bind(this), this.unmountComponents.bind(this))
-
-    this.eventsRegistered = true
-    return true
+    window.WebpackerReact.registerComponents(components)
+    window.WebpackerReact.mountComponents()
   }
 }
 

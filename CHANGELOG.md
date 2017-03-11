@@ -8,7 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## 0.2.0 - in progress
 ### Added
 - support for Turbolinks5, Turbolinks 2.4 and PJAX. Components will be mounted and unmounted when Turbolinks-specific events occur. Also, the integration works with Turbolinks 5 cache.
-- Now, Webpacker::React *always* requires an explicit initialization via `WebpackerReact.initialize()`, which must be done after the Turbolinks initialization, if the Turbolinks library is used.
+- New `WebpackerReact.setup({Component1, Component2, ...})` initialization API. The old API couldn't properly detect the components' names, thus user is required to provide the names in the configuration object's keys. 
+### Removed
+- `WebpackerReact.register(Component)` has been dropped in favor of `WebpackerReact.setup({Component})`
 ## 0.1.0 - 2017-02-23
 ### Added
 - First released version

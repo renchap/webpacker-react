@@ -46,7 +46,7 @@ In your pack file (`app/javascript/packs/*.js`), import your components as well 
 import Hello from 'components/hello'
 import WebpackerReact from 'webpacker-react'
 
-WebpackerReact.setup({Hello})
+WebpackerReact.setup({Hello}) // ES6 shorthand for {Hello: Hello}
 ```
 
 ### With Turbolinks
@@ -180,7 +180,7 @@ and start `webpack-dev-server` in hot replacement mode:
     import SomeRootReactComponent from 'components/some-root-react-component'
     import WebpackerReact from 'webpacker-react/hmr'
 
-    WebpackerReact.register(SomeRootReactComponent)
+    WebpackerReact.setup({SomeRootReactComponent})
     if (module.hot)
       module.hot.accept('components/some-root-react-component', () =>
         WebpackerReact.renderOnHMR(SomeRootReactComponent) )

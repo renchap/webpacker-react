@@ -1,5 +1,7 @@
 # Webpacker::React [![CircleCI](https://circleci.com/gh/renchap/webpacker-react.svg?style=svg)](https://circleci.com/gh/renchap/webpacker-react)
 
+*__Note:__ This is the documentation for the Git master branch. Documentation for the latest release (0.2.0) is [available here](https://github.com/renchap/webpacker-react/commit/f03087417a9d00dcad2892b9509e83f3b6cceda3).*
+
 Webpacker-React makes it easy to use [React](https://facebook.github.io/react/) with [Webpacker](https://github.com/rails/webpacker) in your Rails applications.
 
 Important note: Webpacker is not yet officially released. It will be included in Rails 5.1 but is highly experimental for now.

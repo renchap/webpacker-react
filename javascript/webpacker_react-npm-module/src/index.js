@@ -69,7 +69,7 @@ const WebpackerReact = {
       const component = registeredComponents[className]
 
       if (component) {
-        if (node.innerHTML.length === 0) this.render(node, component)
+        this.render(node, component)
       } else {
         console.error(`webpacker-react: cant render a component that has not been registered: ${className}`)
       }

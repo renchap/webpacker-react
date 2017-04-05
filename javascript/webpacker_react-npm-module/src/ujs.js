@@ -40,8 +40,7 @@ const ujs = {
   },
 
   turbolinks5(onMount, onUnmount) {
-    this.handleEvent('turbolinks:load', onMount, { once: true })
-    this.handleEvent('turbolinks:render', onMount)
+    this.handleEvent('turbolinks:load', onMount)
     this.handleEvent('turbolinks:before-render', onUnmount)
   },
 

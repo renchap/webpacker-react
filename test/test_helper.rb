@@ -14,4 +14,8 @@ class ActionDispatch::IntegrationTest
   def teardown
     Capybara.current_driver = nil
   end
+
+  def require_js
+    Capybara.current_driver = Capybara.javascript_driver
+  end
 end

@@ -15,10 +15,4 @@ class RendererWithTwoPacksTest < ActionDispatch::IntegrationTest
     assert page.has_content? "Component A"
     assert page.has_content? "Component B"
   end
-
-private
-
-  def require_js
-    Capybara.current_driver = Capybara.javascript_driver
-  end
 end

@@ -2,7 +2,6 @@ require "test_helper"
 require "irb"
 
 class RendererWithTwoPacksTest < ActionDispatch::IntegrationTest
-
   test "component mounts" do
     require_js
 
@@ -17,7 +16,7 @@ class RendererWithTwoPacksTest < ActionDispatch::IntegrationTest
     assert page.has_content? "Component B"
   end
 
-  private
+private
 
   def require_js
     Capybara.current_driver = Capybara.javascript_driver

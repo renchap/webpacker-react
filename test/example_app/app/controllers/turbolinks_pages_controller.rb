@@ -1,3 +1,3 @@
 class TurbolinksPagesController < PagesController
-  layout 'turbolinks'
+  layout "turbolinks"
 end

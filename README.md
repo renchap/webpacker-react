@@ -4,8 +4,6 @@
 
 Webpacker-React makes it easy to use [React](https://facebook.github.io/react/) with [Webpacker](https://github.com/rails/webpacker) in your Rails applications.
 
-Important note: Webpacker is not yet officially released. It will be included in Rails 5.1 but is highly experimental for now.
-
 An example application is available: https://github.com/renchap/webpacker-react-example/
 
 This gem is a work in progress. Final feature list:

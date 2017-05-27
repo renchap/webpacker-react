@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    webpacker-react (0.2.0)
+    webpacker-react (0.3.0)
       webpacker
 
 GEM

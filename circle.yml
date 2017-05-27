@@ -11,3 +11,4 @@ test:
   pre:
     - yarn lint:
         pwd: javascript/webpacker_react-npm-module
+    - bundle exec rubocop

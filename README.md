@@ -70,10 +70,17 @@ Now you can render React components from your views or your controllers.
 
 ### Rendering from a view
 
-Use the `react_component` helper:
+Use the `react_component` helper. The first argument is your component's name, the second one is the `props`:
 
 ```erb
 <%= react_component('Hello', name: 'React') %>
+```
+
+You can pass a `tag` argument to render the React component in another tag than the default `div`. All other arguments will be passed to `content_tag`:
+
+```erb
+<%= react_component('Hello', { name: 'React' }, tag: :span, class: 'my-custom-component') %>
+# This will render <span class="my-custom-component" data-react-class="Hello" data-react-props="..."></div>
 ```
 
 ### Rendering from a controller
@@ -86,7 +93,13 @@ class PageController < ApplicationController
 end
 ```
 
-You can pass any of the usual arguments to render in this call: `layout`, `status`, `content_type`, etc.
+You can use the `tag_options` argument to change the generated HTML, similar to the `react_component` method above:
+
+```rb
+render react_component: 'Hello', props: { name: 'React' }, tag_options: { tag: :span, class: 'my-custom-component' }
+```
+
+You can also pass any of the usual arguments to `render` in this call: `layout`, `status`, `content_type`, etc.
 
 *Note: you need to have [Webpack process your code](https://github.com/rails/webpacker#binstubs) before it is available to the browser, either by manually running `./bin/webpack` or having the `./bin/webpack-watcher` process running.*
 

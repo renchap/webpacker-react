@@ -51,6 +51,18 @@ module Webpacker
         )
       end
 
+      def test_it_accepts_tag_option
+        html = Webpacker::React::Component.new(@component[:name])
+                                          .render(
+                                            @component[:props],
+                                            tag: "span"
+                                          )
+
+        assert(
+          html.include?("<span data-react-class="), "it outputs a span"
+        )
+      end
+
       private
 
         def escaped_props(props)

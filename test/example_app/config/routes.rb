@@ -9,5 +9,8 @@ Rails.application.routes.draw do
 
   get "/two_packs/view_all", to: "two_packs#view_all"
 
+  get "/custom_tag_view", to: "custom_tag#view_component"
+  get "/custom_tag_controller", to: "custom_tag#controller_component"
+
   root to: "pages#view_component"
 end

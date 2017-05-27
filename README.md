@@ -195,27 +195,15 @@ After launching `./bin/webpack-watcher` and `./bin/rails server` in your example
 
 ## Testing
 
-Make sure you run first:
+If you changed the local javascript package, first ensure it is build (see above).
 
-```sh
-$ test/example_app/bin/yarn
-$ test/example_app/bin/webpack
-```
-
-And optionally:
-
-```sh
-$ cd test/example_app/vendor/
-$ yarn link "webpacker-react"
-```
-
-Finally, run the test suite:
+To run the test suite:
 
 ```sh
 $ rake test
 ```
 
-If you change the javascript code, please ensure there are no style errors:
+If you change the javascript code, please ensure there are no style errors before committing:
 
 ```sh
 $ cd javascript/webpacker_react-npm-module/

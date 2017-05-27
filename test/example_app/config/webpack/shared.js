@@ -1,57 +1,58 @@
-// Note: You must restart bin/webpack-watcher for changes to take effect
+// Note: You must restart bin/webpack-dev-server for changes to take effect
 
-var path = require('path')
-var glob = require('glob')
-var extname = require('path-complete-extname')
+/* eslint global-require: 0 */
+/* eslint import/no-dynamic-require: 0 */
+
+const webpack = require('webpack')
+const { basename, dirname, join, relative, resolve } = require('path')
+const { sync } = require('glob')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
+const extname = require('path-complete-extname')
+const { env, settings, output, loadersDir } = require('./configuration.js')
+
+const extensionGlob = `**/*{${settings.extensions.join(',')}}*`
+const entryPath = join(settings.source_path, settings.source_entry_path)
+const packPaths = sync(join(entryPath, extensionGlob))
 
 module.exports = {
-  entry: glob.sync(path.join('..', 'app', 'javascript', 'packs', '*.js*')).reduce(
-    function(map, entry) {
-      var basename = path.basename(entry, extname(entry))
-      map[basename] = entry
-      return map
+  entry: packPaths.reduce(
+    (map, entry) => {
+      const localMap = map
+      const namespace = relative(join(entryPath), dirname(entry))
+      localMap[join(namespace, basename(entry, extname(entry)))] = resolve(entry)
+      return localMap
     }, {}
   ),
 
-  output: { filename: '[name].js', path: path.resolve('..', 'public', 'packs') },
-
-  module: {
-    rules: [
-      { test: /\.coffee(.erb)?$/, loader: "coffee-loader" },
-      {
-        test: /\.jsx?(.erb)?$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            'react',
-            [ 'latest', { 'es2015': { 'modules': false } } ]
-          ]
-        }
-      },
-      {
-        test: /.erb$/,
-        enforce: 'pre',
-        exclude: /node_modules/,
-        loader: 'rails-erb-loader',
-        options: {
-          runner: 'DISABLE_SPRING=1 ../bin/rails runner'
-        }
-      },
-    ]
+  output: {
+    filename: '[name].js',
+    path: output.path,
+    publicPath: output.publicPath
   },
 
-  plugins: [],
+  module: {
+    rules: sync(join(loadersDir, '*.js')).map(loader => require(loader))
+  },
+
+  plugins: [
+    new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
+    new ExtractTextPlugin(env.NODE_ENV === 'production' ? '[name]-[hash].css' : '[name].css'),
+    new ManifestPlugin({
+      publicPath: output.publicPath,
+      writeToFileEmit: true
+    })
+  ],
 
   resolve: {
-    extensions: [ '.js', '.jsx', '.coffee' ],
+    extensions: settings.extensions,
     modules: [
-      path.resolve('../app/javascript'),
-      path.resolve('../vendor/node_modules')
+      resolve(settings.source_path),
+      'node_modules'
     ]
   },
 
   resolveLoader: {
-    modules: [ path.resolve('../vendor/node_modules') ]
+    modules: ['node_modules']
   }
 }

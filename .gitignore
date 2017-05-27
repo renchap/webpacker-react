@@ -1,7 +1,6 @@
 node_modules/
 /.bundle/
 /.yardoc
-/Gemfile.lock
 /_yardoc/
 /coverage/
 /doc/
@@ -14,5 +13,6 @@ node_modules/
 test/example_app/log/*
 test/example_app/tmp/*
 test/example_app/public/packs
+test/example_app/public/packs-test
 
 .rvmrc

@@ -1,20 +1,12 @@
 machine:
   node:
-    version: 6.1.0
-checkout:
+    version: 7.9.0
+compile:
   post:
     - yarn:
         pwd: javascript/webpacker_react-npm-module
     - yarn:
         pwd: javascript/webpacker_react-npm-module/dist
-    - yarn link:
-        pwd: javascript/webpacker_react-npm-module/dist
-compile:
-  override:
-    - test/example_app/bin/yarn
-    - yarn link webpacker-react:
-        pwd: test/example_app/vendor
-    - test/example_app/bin/webpack
 test:
   pre:
     - yarn lint:

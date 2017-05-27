@@ -2,14 +2,9 @@ import webpack from 'webpack'
 import merge from 'webpack-merge'
 
 function configureHotModuleReplacement(originalConfig) {
-  const webpackDevServerAddr = process.env.WEBPACK_DEV_SERVER_ADDR || 'http://localhost:8080/'
   const config = merge(
     originalConfig,
     {
-      output: {
-        // needed for HMR to know where to load the hot update chunks
-        publicPath: webpackDevServerAddr
-      },
       plugins: [
         new webpack.NamedModulesPlugin()
       ]

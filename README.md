@@ -130,16 +130,7 @@ module.exports = merge(sharedConfig, ...)
 
 If you need to change your configuration manually:
 
-1. set the public URL used to load `webpack-dev-server` assets
-    ```js
-    {
-      output: {
-        publicPath: 'http://localhost:8080'
-      }
-    }
-    ```
-
-2. add `react-hot-loader/babel` to your `babel-loader` rules:
+1. add `react-hot-loader/babel` to your `babel-loader` rules:
     ```javascript
     {
     module: {
@@ -159,7 +150,7 @@ If you need to change your configuration manually:
     }
     ```
 
-3. prepend `react-hot-loader/patch` to your entries:
+2. prepend `react-hot-loader/patch` to your entries:
     ```javascript
     {
       entry:
@@ -168,7 +159,7 @@ If you need to change your configuration manually:
     }
     ```
 
-4. you now need to use `webpack-dev-server` (in place of `webpack` or `webpack-watcher`). Make sure the following line is in your development.rb:
+3. you now need to use `webpack-dev-server` (in place of `webpack` or `webpack-watcher`). Make sure the following line is in your development.rb:
     ```ruby
     config.x.webpacker[:dev_server_host] = 'http://localhost:8080/'
     ```
@@ -177,7 +168,7 @@ and start `webpack-dev-server` in hot replacement mode:
     ./bin/webpack-dev-server --hot
     ```
 
-5. finally opt in to HMR from your pack files:
+4. finally opt in to HMR from your pack files:
     ```es6
     import SomeRootReactComponent from 'components/some-root-react-component'
     import WebpackerReact from 'webpacker-react/hmr'
@@ -187,6 +178,8 @@ and start `webpack-dev-server` in hot replacement mode:
       module.hot.accept('components/some-root-react-component', () =>
         WebpackerReact.renderOnHMR(SomeRootReactComponent) )
     ```
+
+You also need to ensure that `output.publicPath` are correctly set. This should be already handled by Webpacker.
 
 ## Development
 

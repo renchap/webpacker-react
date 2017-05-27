@@ -1,21 +1,12 @@
-# Webpacker::React [![CircleCI](https://circleci.com/gh/renchap/webpacker-react.svg?style=svg)](https://circleci.com/gh/renchap/webpacker-react)
+# Webpacker-React [![CircleCI](https://circleci.com/gh/renchap/webpacker-react.svg?style=svg)](https://circleci.com/gh/renchap/webpacker-react)
 
 *__Note:__ This is the documentation for the Git master branch. Documentation for the latest release (0.2.0) is [available here](https://github.com/renchap/webpacker-react/tree/f03087417a9d00dcad2892b9509e83f3b6cceda3).*
 
 Webpacker-React makes it easy to use [React](https://facebook.github.io/react/) with [Webpacker](https://github.com/rails/webpacker) in your Rails applications.
 
-Important note: Webpacker is not yet officially released. It will be included in Rails 5.1 but is highly experimental for now.
+It supports Webpacker 1.2+.
 
 An example application is available: https://github.com/renchap/webpacker-react-example/
-
-This gem is a work in progress. Final feature list:
-
-- [x] uses the new Webpacker way of integrating Javascript with Rails (using packs)
-- [x] render React components from views using a `react_component` helper
-- [x] render React components from controllers using `render react_component: 'name'`
-- [x] support for [hot reloading](https://github.com/gaearon/react-hot-loader)
-- [ ] render components server-side
-- [ ] use a Rails generator to create new components
 
 ## Installation
 
@@ -105,10 +96,10 @@ You can pass any of the usual arguments to render in this call: `layout`, `statu
 reloading the page. This allows any change you make to your React components to be applied as soon as you save,
 preserving their current state.
 
-First, install `react-hot-loader`:
+First, install `react-hot-loader` (version 3):
 
 ```
-./bin/yarn add react-hot-loader@3.0.0-beta.6
+./bin/yarn add react-hot-loader@beta
 ```
 
 You then need to update your Webpack config.
@@ -120,12 +111,10 @@ significantly different than the standard Webpacker config:
 //development.js
 ...
 
-var configureHotModuleReplacement = require('webpacker-react/configure-hot-module-replacement')
+const sharedConfig = require('./shared.js')
+const configureHotModuleReplacement = require('webpacker-react/configure-hot-module-replacement')
 
-var sharedConfig = require('./shared.js')
-sharedConfig.config = configureHotModuleReplacement(sharedConfig.config)
-
-module.exports = merge(sharedConfig, ...)
+module.exports = merge(configureHotModuleReplacement(sharedConfig), ...)
 ```
 
 If you need to change your configuration manually:
@@ -140,10 +129,6 @@ If you need to change your configuration manually:
           exclude: /node_modules/,
           loader: 'babel-loader',
           options: {
-            presets: [
-              'react',
-              [ 'latest', { 'es2015': { 'modules': false } } ]
-            ],
             plugins: ['react-hot-loader/babel']
           }
         }
@@ -241,6 +226,10 @@ $ yarn lint
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/renchap/webpacker-react.
 Please feel free to open issues about your needs and features you would like to be added.
+
+## Wishlist
+
+- [ ] server-side rendering (#3)
 
 ### Thanks
 

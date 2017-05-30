@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- Move test Rake tasks out of `lib/tasks` (fixes #33)
+
 ## [0.3.0] - 2017-05-27
 
 ### Added

@@ -33,7 +33,7 @@
     "webpack": "^2.6.1",
     "webpack-manifest-plugin": "^1.1.0",
     "webpack-merge": "^4.1.0",
-    "webpacker-react": "file:./../../javascript/webpacker_react-npm-module/dist"
+    "webpacker-react": "file:../../javascript/webpacker_react-npm-module/dist"
   },
   "devDependencies": {
     "webpack-dev-server": "^2.4.5"

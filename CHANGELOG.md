@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.3.2] - 2017-09-13
+
 ### Fixed
 - The whole `lodash` library was imported, resulting in a big bundle. Specific `lodash` functions`imports` are now used.
 - Helpers are now loaded on `ActionView` loading (fixes #38)
@@ -37,7 +39,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - render React components from controllers using `render react_component: 'name'` (#1 by @daninfpj)
 - basic Hot Module Remplacement (#7 by @mfazekas)
 
-[Unreleased]: https://github.com/renchap/webpacker-react/compare/v0.3.1...HEAD
+[Unreleased]: https://github.com/renchap/webpacker-react/compare/v0.3.2...HEAD
+[0.3.2]: https://github.com/renchap/webpacker-react/tree/v0.3.2
 [0.3.1]: https://github.com/renchap/webpacker-react/tree/v0.3.1
 [0.3.0]: https://github.com/renchap/webpacker-react/tree/v0.3.0
 [0.2.0]: https://github.com/renchap/webpacker-react/tree/v0.2.0

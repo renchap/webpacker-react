@@ -4598,8 +4598,8 @@ webpack@^2.6.1:
     webpack-sources "^0.2.3"
     yargs "^6.0.0"
 
-"webpacker-react@file:./../../javascript/webpacker_react-npm-module/dist":
-  version "0.2.1"
+"webpacker-react@file:../../javascript/webpacker_react-npm-module/dist":
+  version "0.3.2"
 
 websocket-driver@>=0.5.1:
   version "0.6.5"

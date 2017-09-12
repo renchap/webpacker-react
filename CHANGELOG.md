@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - The whole `lodash` library was imported, resulting in a big bundle. Specific `lodash` functions`imports` are now used.
+- Helpers are now loaded on `ActionView` loading (fixes #38)
 
 ## [0.3.1] - 2017-05-30
 

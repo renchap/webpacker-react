@@ -7,6 +7,10 @@ module Webpacker
         ActiveSupport.on_load(:action_controller) do
           ActionController::Base.helper ::Webpacker::React::Helpers
         end
+
+        ActiveSupport.on_load :action_view do
+          include ::Webpacker::React::Helpers
+        end
       end
 
       initializer :webpacker_react_renderer, group: :all do |_app|

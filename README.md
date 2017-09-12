@@ -80,7 +80,7 @@ You can pass a `tag` argument to render the React component in another tag than 
 
 ```erb
 <%= react_component('Hello', { name: 'React' }, tag: :span, class: 'my-custom-component') %>
-# This will render <span class="my-custom-component" data-react-class="Hello" data-react-props="..."></div>
+# This will render <span class="my-custom-component" data-react-class="Hello" data-react-props="..."></span>
 ```
 
 ### Rendering from a controller

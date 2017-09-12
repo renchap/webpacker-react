@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- The whole `lodash` library was imported, resulting in a big bundle. Specific `lodash` functions`imports` are now used.
+
 ## [0.3.1] - 2017-05-30
 
 ### Fixed

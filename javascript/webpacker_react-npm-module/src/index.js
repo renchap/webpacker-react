@@ -1,6 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { intersection, keys, assign, omit } from 'lodash'
+import intersection from 'lodash/intersection'
+import keys from 'lodash/keys'
+import assign from 'lodash/assign'
+import omit from 'lodash/omit'
 import ujs from './ujs'
 
 const CLASS_ATTRIBUTE_NAME = 'data-react-class'

@@ -30,7 +30,7 @@ const WebpackerReact = {
     this.registeredComponents[name] = component
 
     if (!this.wrapForHMR) {
-      console.warn('webpacker-react: renderOnHMR called but not elements not wrapped for HMR')
+      console.warn('webpacker-react: renderOnHMR called but elements not wrapped for HMR')
     }
 
     const toMount = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}=${name}]`)

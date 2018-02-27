@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/webpacker-react
+    docker:
+      - image: circleci/ruby:2.4.3-node
+        environment:
+          RAILS_ENV: test
+    steps:
+      - checkout
+
+      # Install dependencies
+      - run:
+          name: bundle install
+          command: bundle install --path=vendor/bundle --jobs=4 --retry=3
+      - run:
+          command: yarn
+          pwd: javascript/webpacker_react-npm-module
+      - run:
+          command: yarn
+          pwd: javascript/webpacker_react-npm-module/dist
+
+      # Lint
+      - run:
+          command: yarn lint
+          pwd: javascript/webpacker_react-npm-module
+      - run:
+          command: bundle exec rubocop
+
+      # Tests
+      - run:
+          command: bundle exec rake test

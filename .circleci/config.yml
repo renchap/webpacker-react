@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/webpacker-react
     docker:
-      - image: circleci/ruby:2.4.3-node
+      - image: circleci/ruby:2.4.3-node-browsers
         environment:
           RAILS_ENV: test
     steps:

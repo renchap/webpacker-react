@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Instructions to set up `react-hot-loader` 4 (fixed #51)
+
+### Updated
+- Instructions for setting up `webpacker-react` with a modern Webpacker version
+
+### Removed
+- Support for `react-hot-loader`. Please look at the README for instructions on how to use `react-hot-loader` 4 with your app, it is much simpler and better!
+
 ## [0.3.2] - 2017-09-13
 
 ### Fixed

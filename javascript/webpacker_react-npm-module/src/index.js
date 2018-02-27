@@ -11,38 +11,14 @@ const PROPS_ATTRIBUTE_NAME = 'data-react-props'
 
 const WebpackerReact = {
   registeredComponents: {},
-  wrapForHMR: null,
 
   render(node, component) {
     const propsJson = node.getAttribute(PROPS_ATTRIBUTE_NAME)
     const props = propsJson && JSON.parse(propsJson)
 
-    let reactElement = React.createElement(component, props)
-    if (this.wrapForHMR) {
-      reactElement = this.wrapForHMR(reactElement)
-    }
+    const reactElement = React.createElement(component, props)
+
     ReactDOM.render(reactElement, node)
-  },
-
-  renderOnHMR(component) {
-    const name = component.name
-
-    this.registeredComponents[name] = component
-
-    if (!this.wrapForHMR) {
-      console.warn('webpacker-react: renderOnHMR called but elements not wrapped for HMR')
-    }
-
-    const toMount = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}=${name}]`)
-    for (let i = 0; i < toMount.length; i += 1) {
-      const node = toMount[i]
-
-      this.render(node, component)
-    }
-  },
-
-  registerWrapForHMR(wrapForHMR) {
-    this.wrapForHMR = wrapForHMR
   },
 
   registerComponents(components) {

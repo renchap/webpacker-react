@@ -15,7 +15,7 @@ Your Rails application needs to use Webpacker and have the React integration don
 First, you need to add the webpacker-react gem to your Rails app Gemfile:
 
 ```ruby
-gem 'webpacker-react', "~> 0.3.2"
+gem 'webpacker-react', "~> 0.4.0"
 ```
 
 Once done, run `bundle` to install the gem.
@@ -105,79 +105,45 @@ You can also pass any of the usual arguments to `render` in this call: `layout`,
 
 ### Hot Module Replacement
 
-[HMR](https://webpack.js.org/guides/hmr-react/) allows to reload / add / remove modules live in the browser without
+[HMR](https://webpack.js.org/concepts/hot-module-replacement/) allows to reload / add / remove modules live in the browser without
 reloading the page. This allows any change you make to your React components to be applied as soon as you save,
 preserving their current state.
 
-First, install `react-hot-loader` (version 3):
+1. install `react-hot-loader` (version 4):
+      ```
+      ./bin/yarn add react-hot-loader@4
+      ```
 
-```
-./bin/yarn add react-hot-loader@beta
-```
+2. update your Babel or Webpack config. We provide a convenience function to add the necessary changes to your config if it's not significantly different than the standard Webpacker config:
+      ```js
+      // config/webpack/development.js
+      // This assumes Webpacker 3+
 
-You then need to update your Webpack config.
+      const environment = require("./environment")
+      const webpackerReactconfigureHotModuleReplacement = require('webpacker-react/configure-hot-module-replacement')
 
-We provide a convenience function to add the necessary changes to your config if it's not
-significantly different than the standard Webpacker config:
+      const config = environment.toWebpackConfig()
 
-```js
-//development.js
-...
+      module.exports = webpackerReactconfigureHotModuleReplacement(config)
+      ```
 
-const sharedConfig = require('./shared.js')
-const configureHotModuleReplacement = require('webpacker-react/configure-hot-module-replacement')
+      If you prefer to do it manually, you need to add `react-hot-loader/babel` in your Babel plugins (in your `.babelrc` or `.babelrc.js`). You can include it only for development.
 
-module.exports = merge(configureHotModuleReplacement(sharedConfig), ...)
-```
+3. once Babel is configured, `webpack-dev-server` needs to be set up for HMR. This is easy, just switch `hmr: true` in your `webpacker.yml` for development!
 
-If you need to change your configuration manually:
+4. you now need to use `webpack-dev-server` (in place of `webpack` or `webpack-watcher`).
 
-1. add `react-hot-loader/babel` to your `babel-loader` rules:
-    ```javascript
-    {
-    module: {
-      rules: [
-        {
-          test: /\.jsx?(.erb)?$/,
-          exclude: /node_modules/,
-          loader: 'babel-loader',
-          options: {
-            plugins: ['react-hot-loader/babel']
-          }
-        }
-    }
-    ```
-
-2. prepend `react-hot-loader/patch` to your entries:
-    ```javascript
-    {
-      entry:
-        { application: [ 'react-hot-loader/patch', '../app/javascript/packs/application.js' ],
-        ...
-    }
-    ```
-
-3. you now need to use `webpack-dev-server` (in place of `webpack` or `webpack-watcher`). Make sure the following line is in your development.rb:
-    ```ruby
-    config.x.webpacker[:dev_server_host] = 'http://localhost:8080/'
-    ```
-and start `webpack-dev-server` in hot replacement mode:
-    ```
-    ./bin/webpack-dev-server --hot
-    ```
-
-4. finally opt in to HMR from your pack files:
+5. finally, enable React Hot Loader for your root components (the ones you register with `WebpackerReact.setup`):
     ```es6
-    import SomeRootReactComponent from 'components/some-root-react-component'
-    import WebpackerReact from 'webpacker-react/hmr'
+    // For example in app/javascripts/components/hello.js
+    import React from 'react'
+    import { hot } from 'react-hot-loader'
 
-    WebpackerReact.setup({SomeRootReactComponent})
-    if (module.hot)
-      module.hot.accept('components/some-root-react-component', () =>
-        WebpackerReact.renderOnHMR(SomeRootReactComponent) )
+    const Hello = () => <div>Hello World!</div>
+
+    // This is the important line!
+    export default hot(module)(Hello)
     ```
-
-You also need to ensure that `output.publicPath` are correctly set. This should be already handled by Webpacker.
 
 ## Development
 

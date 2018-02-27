@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Updated
 - Instructions for setting up `webpacker-react` with a modern Webpacker version
 
+### Changed
+- Tests now uses headless chrome instead of Poltergeist
+- Babel is configured with `babel-preset-env`
+
 ### Removed
 - Support for `react-hot-loader`. Please look at the README for instructions on how to use `react-hot-loader` 4 with your app, it is much simpler and better!
 

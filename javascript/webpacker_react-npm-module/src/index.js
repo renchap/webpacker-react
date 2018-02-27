@@ -39,7 +39,7 @@ const WebpackerReact = {
   },
 
   mountComponents() {
-    const registeredComponents = this.registeredComponents
+    const { registeredComponents } = this
     const toMount = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`)
 
     for (let i = 0; i < toMount.length; i += 1) {

@@ -22,5 +22,8 @@
   "scripts": {
     "prepublish": "cd .. ; yarn run build"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "webpack-merge": "^4.1.1"
+  }
 }

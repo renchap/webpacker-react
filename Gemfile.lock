@@ -61,7 +61,7 @@ GEM
     concurrent-ruby (1.0.5)
     crass (1.0.3)
     erubi (1.7.0)
-    ffi (1.9.23)
+    ffi (1.11.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     i18n (0.9.5)

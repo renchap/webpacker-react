@@ -2593,8 +2593,8 @@ lru-cache@^4.0.1:
     yallist "^2.0.0"
 
 macaddress@^0.2.8:
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/macaddress/-/macaddress-0.2.8.tgz#5904dc537c39ec6dbefeae902327135fa8511f12"
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/macaddress/-/macaddress-0.2.9.tgz#3579b8b9acd5b96b4553abf0f394185a86813cb3"
 
 map-obj@^1.0.0, map-obj@^1.0.1:
   version "1.0.1"
@@ -4609,7 +4609,7 @@ webpack@^2.6.1:
     yargs "^6.0.0"
 
 "webpacker-react@file:../../javascript/webpacker_react-npm-module/dist":
-  version "0.3.2"
+  version "0.4.0"
   dependencies:
     webpack-merge "^4.1.1"
 

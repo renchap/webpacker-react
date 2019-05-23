@@ -1789,8 +1789,8 @@ form-data@~2.1.1:
     mime-types "^2.1.12"
 
 forwarded@~0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.0.tgz#19ef9874c4ae1c297bcf078fde63a09b66a84363"
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
 
 fraction.js@4.0.0:
   version "4.0.0"
@@ -4609,7 +4609,7 @@ webpack@^2.6.1:
     yargs "^6.0.0"
 
 "webpacker-react@file:../../javascript/webpacker_react-npm-module/dist":
-  version "0.3.2"
+  version "0.4.0"
   dependencies:
     webpack-merge "^4.1.1"
 

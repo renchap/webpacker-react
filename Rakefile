@@ -27,7 +27,7 @@ namespace :example_app do
 
   desc "Runs webpack in test/example_app"
   task webpack: :yarn do
-    sh "cd test/example_app && NODE_ENV=test ./bin/webpack"
+    sh "cd test/example_app && RAILS_ENV=test ./bin/webpack"
   end
 end
 

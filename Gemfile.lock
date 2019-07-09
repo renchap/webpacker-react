@@ -91,7 +91,8 @@ GEM
     parser (2.6.3.0)
       ast (~> 2.4.0)
     public_suffix (3.1.1)
-    puma (3.12.1)
+    puma (4.0.0)
+      nio4r (~> 2.0)
     rack (2.0.7)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -163,7 +164,7 @@ DEPENDENCIES
   bundler (~> 1.13)
   capybara
   minitest (~> 5.0)
-  puma (~> 3.11)
+  puma (~> 4.0)
   rails (~> 5.2.0)
   rake (~> 12.0)
   rubocop (>= 0.47)

@@ -5,6 +5,7 @@ require "webpacker/react/version"
 
 Gem::Specification.new do |spec|
   spec.name = "webpacker-react"
+  spec.licenses = ["MIT"]
   spec.version = Webpacker::React::VERSION
   spec.authors = ["Renaud Chaput"]
   spec.email = ["renchap@gmail.com"]
@@ -20,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = ">= 1.9.3"
+  spec.required_ruby_version = ">= 2.3.0"
 
   spec.add_dependency "webpacker"
 

@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.0-beta.1]
+
 ### Added
 - Instructions to set up `react-hot-loader` 4 (fixed #51)
 
@@ -52,7 +54,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - render React components from controllers using `render react_component: 'name'` (#1 by @daninfpj)
 - basic Hot Module Remplacement (#7 by @mfazekas)
 
-[Unreleased]: https://github.com/renchap/webpacker-react/compare/v0.3.2...HEAD
+[Unreleased]: https://github.com/renchap/webpacker-react/compare/v1.0.0-beta.1...HEAD
+[1.0.0-beta.1]: https://github.com/renchap/webpacker-react/tree/v1.0.0-beta.1
 [0.3.2]: https://github.com/renchap/webpacker-react/tree/v0.3.2
 [0.3.1]: https://github.com/renchap/webpacker-react/tree/v0.3.1
 [0.3.0]: https://github.com/renchap/webpacker-react/tree/v0.3.0

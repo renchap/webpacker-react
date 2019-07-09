@@ -1,6 +1,6 @@
 # Webpacker-React [![CircleCI](https://circleci.com/gh/renchap/webpacker-react.svg?style=svg)](https://circleci.com/gh/renchap/webpacker-react)
 
-*__Note:__ This is the documentation for the Git master branch. Documentation for the latest release (0.3.2) is [available here](https://github.com/renchap/webpacker-react/tree/v0.3.2).*
+*__Note:__ This is the documentation for the Git master branch. Documentation for the latest release (1.0.0-beta.1) is [available here](https://github.com/renchap/webpacker-react/tree/v0.3.2).*
 
 Webpacker-React makes it easy to use [React](https://facebook.github.io/react/) with [Webpacker](https://github.com/rails/webpacker) in your Rails applications.
 
@@ -15,7 +15,7 @@ Your Rails application needs to use Webpacker and have the React integration don
 First, you need to add the webpacker-react gem to your Rails app Gemfile:
 
 ```ruby
-gem 'webpacker-react', "~> 0.4.0"
+gem 'webpacker-react', "~> 1.0.0.beta.1"
 ```
 
 Once done, run `bundle` to install the gem.

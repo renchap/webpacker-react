@@ -1,0 +1,45 @@
+{
+  "name": "react-components-rails",
+  "version": "1.0.0-beta.1",
+  "homepage": "https://github.com/renchap/react-components-rails",
+  "repository": "renchap/react-components-rails",
+  "author": {
+    "name": "Renaud Chaput",
+    "email": "renchap@gmail.com"
+  },
+  "license": "MIT",
+  "type": "module",
+  "source": "src/index.ts",
+  "exports": {
+    "require": "./dist/react-components-rails.cjs",
+    "default": "./dist/react-components-rails.modern.js"
+  },
+  "main": "./dist/react-components-rails.cjs",
+  "module": "./dist/react-components-rails.module.js",
+  "unpkg": "./dist/react-components-rails.umd.js",
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.179",
+    "lodash": "^4.17.21"
+  },
+  "peerDependencies": {
+    "react": ">= 0.14",
+    "react-dom": ">= 0.14"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
+    "microbundle": "^0.14.2",
+    "prettier": "^2.5.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.5.5"
+  },
+  "packageManager": "yarn@3.2.0",
+  "prettier": {
+    "semi": false
+  }
+}

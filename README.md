@@ -1,72 +1,40 @@
-# Webpacker-React [![CircleCI](https://circleci.com/gh/renchap/webpacker-react.svg?style=svg)](https://circleci.com/gh/renchap/webpacker-react)
+# React-Components-Rails
 
-*__Note:__ This is the documentation for the Git master branch. Documentation for the latest release (1.0.0-beta.1) is [available here](https://github.com/renchap/webpacker-react/tree/v0.3.2).*
+_**Note:** This project was formerly known as `webpacker-rails`. Following Webpacker's deprecation, it has been renamed and rewritten to no longer rely on Webpacker. Documentation for the latest `webpacker-rails` release (1.0.0-beta.1) is [available here](https://github.com/renchap/webpacker-react/tree/v1.0.0-beta.1)._
 
-Webpacker-React makes it easy to use [React](https://facebook.github.io/react/) with [Webpacker](https://github.com/rails/webpacker) in your Rails applications.
-
-It supports Webpacker 1.2+.
-
-An example application is available: https://github.com/renchap/webpacker-react-example/
+React-Components-Rails makes it easy to use [React](https://reactjs.org/) with your Rails applications. It provides Controller and View helpers to render React Components on your application, and does not case about the way you ship your Javascript
 
 ## Installation
 
-Your Rails application needs to use Webpacker and have the React integration done. Please refer to their documentation documentation for this: https://github.com/rails/webpacker/blob/master/README.md#ready-for-react
-
-First, you need to add the webpacker-react gem to your Rails app Gemfile:
+First, you need to add this gem to your Rails app Gemfile:
 
 ```ruby
-gem 'webpacker-react', "~> 1.0.0.beta.1"
+gem 'react-components-rails', "~> 1.0.0.beta.1"
 ```
 
 Once done, run `bundle` to install the gem.
 
-Then you need to update your `package.json` file to include the `webpacker-react` NPM module:
+Then you need to update your `package.json` file to include the `react-components-rails` Javascript module:
 
-`./bin/yarn add webpacker-react`
+`yarn add react-components-rails`
 
 You are now all set!
 
 ### Note about versions
 
-Webpacker-React contains two parts: a Javascript module and a Ruby gem. Both of those components respect [semantic versioning](http://semver.org). **When upgrading the gem, you need to upgrade the NPM module to the same minor version**. New patch versions can be released for each of the two independently, so it is ok to have the NPM module at version `A.X.Y` and the gem at version `A.X.Z`, but you should never have a different `A` or `X`.
+React-Components-Rails contains two parts: a Javascript module and a Ruby gem. Both of those components respect [semantic versioning](http://semver.org). **When upgrading the gem, you need to upgrade the NPM module to the same minor version**. New patch versions can be released for each of the two independently, so it is ok to have the NPM module at version `A.X.Y` and the gem at version `A.X.Z`, but you should never have a different `A` or `X`.
 
 ## Usage
 
 The first step is to register your root components (those you want to load from your HTML).
-In your pack file (`app/javascript/packs/*.js`), import your components as well as `webpacker-react` and register them. Considering you have a component in `app/javascript/components/hello.js`:
+In your app entry file, import your components as well as `react-components-rails` and register them. Considering you have a component in `app/javascript/components/hello.js`:
 
 ```javascript
-import Hello from 'components/hello'
-import WebpackerReact from 'webpacker-react'
+import Hello from "components/hello"
+import ReactComponentsRails from "react-components-rails"
 
-WebpackerReact.setup({Hello}) // ES6 shorthand for {Hello: Hello}
+ReactComponentsRails.setup({ Hello }) // ES6 shorthand for {Hello: Hello}
 ```
-
-### With Turbolinks
-
-You have to make sure Turbolinks is loaded before calling `WebpackerReact.initialize()`.
-
-For example:
-
-```javascript
-import Hello from 'components/hello'
-import WebpackerReact from 'webpacker-react'
-import Turbolinks from 'turbolinks'
-
-Turbolinks.start()
-
-WebpackerReact.setup({Hello})
-```
-
-You may also load turbolinks in regular asset pipeline `application.js`:
-
-```javascript
-//= require "turbolinks"
-```
-
-In that case, make sure your packs are loaded *after* `application.js`
-
-Now you can render React components from your views or your controllers.
 
 ### Rendering from a view
 
@@ -101,50 +69,11 @@ render react_component: 'Hello', props: { name: 'React' }, tag_options: { tag: :
 
 You can also pass any of the usual arguments to `render` in this call: `layout`, `status`, `content_type`, etc.
 
-*Note: you need to have [Webpack process your code](https://github.com/rails/webpacker#binstubs) before it is available to the browser, either by manually running `./bin/webpack` or having the `./bin/webpack-watcher` process running.*
-
 ### Hot Module Replacement
 
-[HMR](https://webpack.js.org/concepts/hot-module-replacement/) allows to reload / add / remove modules live in the browser without
-reloading the page. This allows any change you make to your React components to be applied as soon as you save,
-preserving their current state.
+It should be supported out of the box, if supported by your Javascript stack. Please refer to your Javascript compiler/bundler documentation to do so.
 
-1. install `react-hot-loader` (version 4):
-      ```
-      ./bin/yarn add react-hot-loader@4
-      ```
-
-2. update your Babel or Webpack config. We provide a convenience function to add the necessary changes to your config if it's not significantly different than the standard Webpacker config:
-      ```js
-      // config/webpack/development.js
-      // This assumes Webpacker 3+
-
-      const environment = require("./environment")
-      const webpackerReactconfigureHotModuleReplacement = require('webpacker-react/configure-hot-module-replacement')
-
-      const config = environment.toWebpackConfig()
-
-      module.exports = webpackerReactconfigureHotModuleReplacement(config)
-      ```
-
-      If you prefer to do it manually, you need to add `react-hot-loader/babel` in your Babel plugins (in your `.babelrc` or `.babelrc.js`). You can include it only for development.
-
-3. once Babel is configured, `webpack-dev-server` needs to be set up for HMR. This is easy, just switch `hmr: true` in your `webpacker.yml` for development!
-
-4. you now need to use `webpack-dev-server` (in place of `webpack` or `webpack-watcher`).
-
-5. finally, enable React Hot Loader for your root components (the ones you register with `WebpackerReact.setup`):
-    ```es6
-    // For example in app/javascripts/components/hello.js
-    import React from 'react'
-    import { hot } from 'react-hot-loader'
-
-    const Hello = () => <div>Hello World!</div>
-
-    // This is the important line!
-    export default hot(module)(Hello)
-    ```
-
+<!--
 ## Development
 
 To work on this gem locally, you first need to clone and setup [the example application](https://github.com/renchap/webpacker-react-example).
@@ -187,16 +116,12 @@ If you change the javascript code, please ensure there are no style errors befor
 ```sh
 $ cd javascript/webpacker_react-npm-module/
 $ yarn lint
-```
+``` -->
 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/renchap/webpacker-react.
 Please feel free to open issues about your needs and features you would like to be added.
-
-## Wishlist
-
-- [ ] server-side rendering (#3)
 
 ### Thanks
 

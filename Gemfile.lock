@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    react_components_rails (1.0.0.pre.1)
+    react-components-rails (1.0.0.beta2)
 
 GEM
   remote: https://rubygems.org/
@@ -28,11 +28,12 @@ GEM
     unicode-display_width (2.1.0)
 
 PLATFORMS
+  arm64-darwin-21
   x86_64-darwin-21
 
 DEPENDENCIES
   bundler (~> 2.3)
-  react_components_rails!
+  react-components-rails!
   rubocop
 
 BUNDLED WITH

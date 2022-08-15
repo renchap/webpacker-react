@@ -1,9 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import intersection from "lodash/intersection"
-import keys from "lodash/keys"
-import assign from "lodash/assign"
-import omit from "lodash/omit"
+import ReactDOMClient, { Root } from "react-dom/client"
+import { intersection, keys, assign, omit } from "lodash"
 // import ujs from './ujs'
 
 const CLASS_ATTRIBUTE_NAME = "data-react-class"
@@ -17,6 +15,11 @@ declare global {
 
 const ReactComponentsRails = {
   registeredComponents: {} as { [name: string]: React.ComponentType },
+  mountedRoots: [] as Root[],
+  ReactDOMClient: undefined as
+    | typeof ReactDOM
+    | typeof ReactDOMClient
+    | undefined,
 
   render(node: Element, component: React.ComponentType) {
     const propsJson = node.getAttribute(PROPS_ATTRIBUTE_NAME)
@@ -24,7 +27,15 @@ const ReactComponentsRails = {
 
     const reactElement = React.createElement(component, props)
 
-    ReactDOM.render(reactElement, node)
+    if (this.ReactDOMClient) {
+      if ("createRoot" in this.ReactDOMClient) {
+        const root = this.ReactDOMClient.createRoot(node)
+        root.render(reactElement)
+        this.mountedRoots.push(root)
+      } else {
+        this.ReactDOMClient.render(reactElement, node)
+      }
+    }
   },
 
   registerComponents(components: { [name: string]: React.Component }) {
@@ -43,9 +54,16 @@ const ReactComponentsRails = {
   },
 
   unmountComponents() {
-    const mounted = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`)
-    for (let i = 0; i < mounted.length; i += 1) {
-      ReactDOM.unmountComponentAtNode(mounted[i])
+    if (this.ReactDOMClient) {
+      if ("createRoot" in this.ReactDOMClient) {
+        this.mountedRoots.forEach((root) => root.unmount())
+        this.mountedRoots = []
+      } else {
+        const mounted = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`)
+        for (let i = 0; i < mounted.length; i += 1) {
+          this.ReactDOMClient.unmountComponentAtNode(mounted[i])
+        }
+      }
     }
   },
 
@@ -76,7 +94,8 @@ const ReactComponentsRails = {
     }
   },
 
-  setup(components = {}) {
+  async setup(components = {}) {
+    await this.loadReactDOMClient()
     if (typeof window.ReactComponentsRails === "undefined") {
       window.ReactComponentsRails = this
       // ujs.setup(this.mountComponents.bind(this), this.unmountComponents.bind(this))
@@ -84,6 +103,16 @@ const ReactComponentsRails = {
 
     window.ReactComponentsRails.registerComponents(components)
     window.ReactComponentsRails.mountComponents()
+  },
+
+  async loadReactDOMClient() {
+    if (this.ReactDOMClient) return
+
+    try {
+      this.ReactDOMClient = await import("react-dom/client")
+    } catch (e) {
+      this.ReactDOMClient = ReactDOM
+    }
   },
 }
 

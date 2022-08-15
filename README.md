@@ -9,7 +9,7 @@ React-Components-Rails makes it easy to use [React](https://reactjs.org/) with y
 First, you need to add this gem to your Rails app Gemfile:
 
 ```ruby
-gem 'react-components-rails', "~> 1.0.0.beta.1"
+gem 'react-components-rails', "~> 1.0.0.beta.2"
 ```
 
 Once done, run `bundle` to install the gem.
@@ -33,7 +33,7 @@ In your app entry file, import your components as well as `react-components-rail
 import Hello from "components/hello"
 import ReactComponentsRails from "react-components-rails"
 
-ReactComponentsRails.setup({ Hello }) // ES6 shorthand for {Hello: Hello}
+ReactComponentsRails.setup({ Hello }) // ES6 shorthand for { Hello: Hello }
 ```
 
 ### Rendering from a view
@@ -72,6 +72,12 @@ You can also pass any of the usual arguments to `render` in this call: `layout`,
 ### Hot Module Replacement
 
 It should be supported out of the box, if supported by your Javascript stack. Please refer to your Javascript compiler/bundler documentation to do so.
+
+## React versions
+
+This package tries to support both the legacy React DOM interface (`ReactDOM.render`) and the new one introduced in React 18 (`ReactDOM.createRoot`).
+
+The installed React version is tested at runtime by trying to import `react-dom/client`. If the import succeeds then the new API is used, otherwise we fallback to the legacy API.
 
 <!--
 ## Development

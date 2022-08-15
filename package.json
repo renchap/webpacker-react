@@ -11,18 +11,21 @@
   "type": "module",
   "source": "src/index.ts",
   "exports": {
-    "require": "./dist/react-components-rails.cjs",
-    "default": "./dist/react-components-rails.modern.js"
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.js"
   },
-  "main": "./dist/react-components-rails.cjs",
-  "module": "./dist/react-components-rails.module.js",
-  "unpkg": "./dist/react-components-rails.umd.js",
+  "main": "./dist/index.cjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "src/"
+  ],
   "scripts": {
-    "build": "microbundle",
-    "dev": "microbundle watch"
+    "build": "tsup src/index.ts --dts --sourcemap --format esm --target es6 --minify && tsup src/index.ts --sourcemap --format cjs --target es5 --minify",
+    "dev": "tsup watch"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.179",
+    "@types/lodash": "^4.14.182",
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
@@ -30,15 +33,15 @@
     "react-dom": ">= 0.14"
   },
   "devDependencies": {
-    "@types/react": "^17.0.39",
-    "@types/react-dom": "^17.0.11",
-    "microbundle": "^0.14.2",
-    "prettier": "^2.5.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "typescript": "^4.5.5"
+    "@swc/core": "^1.2.231",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsup": "^6.2.2",
+    "typescript": "^4.7.4"
   },
-  "packageManager": "yarn@3.2.0",
   "prettier": {
     "semi": false
   }

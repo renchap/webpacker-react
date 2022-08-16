@@ -101,25 +101,31 @@ const ReactComponentsRails = {
     }
   },
 
-  async setup(components = {}) {
-    await this.loadReactDOMClient()
+  setup(components = {}) {
     if (typeof window.ReactComponentsRails === "undefined") {
       window.ReactComponentsRails = this
       // ujs.setup(this.mountComponents.bind(this), this.unmountComponents.bind(this))
     }
 
-    window.ReactComponentsRails.registerComponents(components)
-    window.ReactComponentsRails.mountComponents()
+    this.loadReactDOMClient().then(() => {
+      window.ReactComponentsRails.registerComponents(components)
+      window.ReactComponentsRails.mountComponents()
+    })
   },
 
-  async loadReactDOMClient() {
-    if (this.ReactDOMClient) return
+  loadReactDOMClient() {
+    return new Promise<void>((resolve) => {
+      if (this.ReactDOMClient) resolve()
 
-    try {
-      this.ReactDOMClient = await import("react-dom/client")
-    } catch (e) {
-      this.ReactDOMClient = ReactDOM
-    }
+      import("react-dom/client")
+        .then((i) => {
+          this.ReactDOMClient = i
+          resolve()
+        })
+        .catch(() => {
+          this.ReactDOMClient = ReactDOM
+        })
+    })
   },
 }
 

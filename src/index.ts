@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import ReactDOMClient, { Root } from "react-dom/client"
+import type ReactDOMClient from "react-dom/client"
 
 // import ujs from './ujs'
 
@@ -15,11 +15,8 @@ declare global {
 
 class ReactComponentsRails {
   #registeredComponents = {} as { [name: string]: React.ComponentType }
-  #mountedRoots = [] as Root[]
-  #ReactDOMClient = undefined as
-    | typeof ReactDOM
-    | typeof ReactDOMClient
-    | undefined
+  #mountedRoots = [] as ReactDOMClient.Root[]
+  #ReactDOMClient = undefined as typeof ReactDOMClient | undefined | false
 
   static getInstance() {
     if (typeof window.ReactComponentsRails === "undefined") {
@@ -39,13 +36,11 @@ class ReactComponentsRails {
     const reactElement = React.createElement(component, props)
 
     if (this.#ReactDOMClient) {
-      if ("createRoot" in this.#ReactDOMClient) {
-        const root = this.#ReactDOMClient.createRoot(node)
-        root.render(reactElement)
-        this.#mountedRoots.push(root)
-      } else {
-        this.#ReactDOMClient.render(reactElement, node)
-      }
+      const root = this.#ReactDOMClient.createRoot(node)
+      root.render(reactElement)
+      this.#mountedRoots.push(root)
+    } else {
+      ReactDOM.render(reactElement, node)
     }
   }
 
@@ -76,14 +71,12 @@ class ReactComponentsRails {
   // Not used for now, useful for UJS
   // private unmountComponents() {
   //   if (this.#ReactDOMClient) {
-  //     if ("createRoot" in this.#ReactDOMClient) {
-  //       this.#mountedRoots.forEach((root) => root.unmount())
-  //       this.#mountedRoots = []
-  //     } else {
-  //       const mounted = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`)
-  //       for (let i = 0; i < mounted.length; i += 1) {
-  //         this.#ReactDOMClient.unmountComponentAtNode(mounted[i])
-  //       }
+  //     this.#mountedRoots.forEach((root) => root.unmount())
+  //     this.#mountedRoots = []
+  //   } else {
+  //     const mounted = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`)
+  //     for (let i = 0; i < mounted.length; i += 1) {
+  //       ReactDOM.unmountComponentAtNode(mounted[i])
   //     }
   //   }
   // }
@@ -127,11 +120,14 @@ class ReactComponentsRails {
 
       import("react-dom/client")
         .then((i) => {
-          this.#ReactDOMClient = i
+          // with some bundlers, it can be imported as `.default`, while not with some others
+          this.#ReactDOMClient = i.default || i
           resolve()
         })
         .catch(() => {
-          this.#ReactDOMClient = ReactDOM
+          // if this fails, then we will fallback to the legacy API
+          this.#ReactDOMClient = false
+          resolve()
         })
     })
   }

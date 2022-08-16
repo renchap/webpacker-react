@@ -24,10 +24,7 @@
     "build": "tsup src/index.ts --dts --sourcemap --format esm --target es6 --minify && tsup src/index.ts --sourcemap --format cjs --target es5 --minify",
     "dev": "tsup watch"
   },
-  "dependencies": {
-    "@types/lodash": "^4.14.182",
-    "lodash": "^4.17.21"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "react": ">= 0.14",
     "react-dom": ">= 0.14"

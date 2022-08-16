@@ -2,19 +2,13 @@ lockfileVersion: 5.4
 
 specifiers:
   '@swc/core': ^1.2.231
-  '@types/lodash': ^4.14.182
   '@types/react': ^18.0.17
   '@types/react-dom': ^18.0.6
-  lodash: ^4.17.21
   prettier: ^2.7.1
   react: ^18.2.0
   react-dom: ^18.2.0
   tsup: ^6.2.2
   typescript: ^4.7.4
-
-dependencies:
-  '@types/lodash': 4.14.182
-  lodash: 4.17.21
 
 devDependencies:
   '@swc/core': 1.2.231
@@ -219,10 +213,6 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
-
-  /@types/lodash/4.14.182:
-    resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==}
-    dev: false
 
   /@types/prop-types/15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
@@ -732,10 +722,6 @@ packages:
   /lodash.sortby/4.7.0:
     resolution: {integrity: sha512-HDWXG8isMntAyRF5vZ7xKuEvOhT4AhlRt/3czTSjvGUxjYCBVRQY48ViDHyfYz9VIoBkW4TMGQNapx+l3RUwdA==}
     dev: true
-
-  /lodash/4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: false
 
   /loose-envify/1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}

@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import ReactDOMClient, { Root } from "react-dom/client"
-import { intersection, keys, assign, omit } from "lodash"
+
 // import ujs from './ujs'
 
 const CLASS_ATTRIBUTE_NAME = "data-react-class"
@@ -38,18 +38,25 @@ const ReactComponentsRails = {
     }
   },
 
-  registerComponents(components: { [name: string]: React.Component }) {
-    const collisions = intersection(
-      keys(this.registeredComponents),
-      keys(components)
-    )
-    if (collisions.length > 0) {
+  registerComponents(components: { [name: string]: React.ComponentType }) {
+    const alreadyExisting: string[] = []
+
+    Object.keys(components).forEach((key) => {
+      if (this.registeredComponents[key]) alreadyExisting.push(key)
+      else {
+        const comp = components[key]
+        this.registeredComponents[key] = comp
+      }
+    })
+
+    if (alreadyExisting.length > 0) {
       console.error(
-        `react-components-rails: can not register components. Following components are already registered: ${collisions}`
+        `react-components-rails: can not register components. Following components are already registered: ${alreadyExisting.join(
+          ", "
+        )}`
       )
     }
 
-    assign(this.registeredComponents, omit(components, collisions))
     return true
   },
 

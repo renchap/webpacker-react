@@ -1,0 +1,46 @@
+{
+  "name": "react-components-rails",
+  "version": "1.0.0-beta.4",
+  "homepage": "https://github.com/renchap/react-components-rails",
+  "repository": "renchap/react-components-rails",
+  "author": {
+    "name": "Renaud Chaput",
+    "email": "renchap@gmail.com"
+  },
+  "license": "MIT",
+  "source": "src/index.ts",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.js"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "src/"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --dts --sourcemap --format esm --target es6 --minify && tsup src/index.ts --sourcemap --format cjs --target es5 --minify",
+    "dev": "tsup watch"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": ">= 0.14",
+    "react-dom": ">= 0.14"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.2.231",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsup": "^6.2.2",
+    "typescript": "^4.7.4"
+  },
+  "prettier": {
+    "semi": false
+  }
+}

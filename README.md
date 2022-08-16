@@ -9,7 +9,7 @@ React-Components-Rails makes it easy to use [React](https://reactjs.org/) with y
 First, you need to add this gem to your Rails app Gemfile:
 
 ```ruby
-gem 'react-components-rails', "~> 1.0.0.beta.2"
+gem 'react-components-rails', "~> 1.0.0.beta.4"
 ```
 
 Once done, run `bundle` to install the gem.

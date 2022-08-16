@@ -6,7 +6,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 Gem::Specification.new do |spec|
   spec.name = "react-components-rails"
   spec.licenses = ["MIT"]
-  spec.version = "1.0.0.beta3"
+  spec.version = "1.0.0.beta4"
   spec.authors = ["Renaud Chaput"]
   spec.email = ["renchap@gmail.com"]
 

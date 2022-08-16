@@ -8,13 +8,13 @@
     "email": "renchap@gmail.com"
   },
   "license": "MIT",
-  "type": "module",
   "source": "src/index.ts",
   "exports": {
-    "require": "./dist/index.cjs",
-    "default": "./dist/index.js"
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js",
+    "default": "./dist/index.mjs"
   },
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist/",

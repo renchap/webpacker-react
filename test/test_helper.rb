@@ -5,19 +5,18 @@ require "webpacker/react"
 require "minitest/autorun"
 require "capybara/rails"
 
-require "selenium/webdriver"
+# Capybara.register_driver :headless_chrome do |app|
+#   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+#     chromeOptions: { args: %w(headless disable-gpu) }
+#   )
 
-Capybara.register_driver :headless_chrome do |app|
-  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w(headless disable-gpu) }
-  )
+#   Capybara::Selenium::Driver.new app,
+#     browser: :chrome,
+#     desired_capabilities: capabilities
+# end
 
-  Capybara::Selenium::Driver.new app,
-    browser: :chrome,
-    desired_capabilities: capabilities
-end
-
-Capybara.javascript_driver = :headless_chrome
+Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.server = :puma, { Silent: true }
 
 class ActionDispatch::IntegrationTest
   class DriverJSError < StandardError; end
@@ -48,7 +47,7 @@ class ActionDispatch::IntegrationTest
   end
 
   def current_js_errors
-    page.driver.browser.manage.logs.get(:browser)
+    page.driver.browser.logs.get(:browser)
       .select { |e| e.level == "SEVERE" && message.present? }
       .map(&:message)
       .to_a

@@ -1,18 +1,49 @@
-version: 2
-jobs:
-  build:
-    working_directory: ~/webpacker-react
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.8.0
+  node: circleci/node@5.0.2
+  browser-tools: circleci/browser-tools@1.4.0
+
+executors:
+  ruby-node-executor:
+    parameters:
+      ruby-version:
+        type: string
+        default: '3.0'
+    working_directory: ~/react-rails-components
     docker:
-      - image: circleci/ruby:2.4.3-node-browsers
-        environment:
-          RAILS_ENV: test
+      - image: cimg/ruby:<< parameters.ruby-version >>-node
+    environment:
+      RAILS_ENV: test
+
+jobs:
+  run-build:
+    parameters:
+      ruby-version:
+        type: string
+        default: '3.0'
+    parallelism: 1
+    executor:
+      name: ruby-node-executor
+      ruby-version: << parameters.ruby-version >>
+
     steps:
       - checkout
 
-      # Install dependencies
-      - run:
-          name: bundle install
-          command: bundle install --path=vendor/bundle --jobs=4 --retry=3
+      # Docs: https://circleci.com/developer/orbs/orb/circleci/browser-tools#commands-install-chromedriver
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+
+      # Docs: https://circleci.com/developer/orbs/orb/circleci/ruby#commands-install-deps
+      - ruby/install-deps
+
+      # Docs: https://circleci.com/developer/orbs/orb/circleci/node#commands-install-packages
+      - node/install-packages:
+          pkg-manager: yarn
+          app-dir: javascript/webpacker_react-npm-module
+          include-branch-in-cache-key: false
+
       - run:
           command: yarn
           pwd: javascript/webpacker_react-npm-module
@@ -30,3 +61,14 @@ jobs:
       # Tests
       - run:
           command: bundle exec rake test
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - run-build:
+          matrix:
+            parameters:
+              ruby-version:
+                - '3.0'
+                - '3.1'

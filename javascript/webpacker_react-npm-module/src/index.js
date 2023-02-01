@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import intersection from 'lodash/intersection'
 import keys from 'lodash/keys'
 import assign from 'lodash/assign'
@@ -17,8 +17,9 @@ const WebpackerReact = {
     const props = propsJson && JSON.parse(propsJson)
 
     const reactElement = React.createElement(component, props)
+    const root = createRoot(node)
 
-    ReactDOM.render(reactElement, node)
+    root.render(reactElement)
   },
 
   registerComponents(components) {
@@ -34,7 +35,7 @@ const WebpackerReact = {
   unmountComponents() {
     const mounted = document.querySelectorAll(`[${CLASS_ATTRIBUTE_NAME}]`)
     for (let i = 0; i < mounted.length; i += 1) {
-      ReactDOM.unmountComponentAtNode(mounted[i])
+      mounted[i].unmount()
     }
   },
 

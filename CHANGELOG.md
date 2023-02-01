@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Tests now uses headless chrome instead of Poltergeist
 - Babel is configured with `babel-preset-env`
+- Updated React syntax to v18
 
 ### Removed
 - Support for `react-hot-loader`. Please look at the README for instructions on how to use `react-hot-loader` 4 with your app, it is much simpler and better!
